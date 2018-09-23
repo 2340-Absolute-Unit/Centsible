@@ -18,6 +18,7 @@ import java.util.Arrays;
 public class LandingPage extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 123;
+    private View rootView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,7 @@ public class LandingPage extends AppCompatActivity {
         setContentView(R.layout.activity_landing_page);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        rootView = findViewById(R.id.root);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +52,7 @@ public class LandingPage extends AppCompatActivity {
             }
         });
     }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
@@ -58,22 +60,27 @@ public class LandingPage extends AppCompatActivity {
 
             // Successfully signed in
             if (resultCode == RESULT_OK) {
+                System.out.println("HELLO");
                 startActivity(SignedInActivity.createIntent(this, response));
+
                 finish();
             } else {
+
                 // Sign in failed
                 if (response == null) {
                     // User pressed back button
-//                        showSnackbar(R.string.sign_in_cancelled);
+                    Snackbar.make(rootView, R.string.sign_in_cancelled,
+                            Snackbar.LENGTH_LONG).show();
                     return;
                 }
 
                 if (response.getError().getErrorCode() == ErrorCodes.NO_NETWORK) {
-//                        showSnackbar(R.string.no_internet_connection);
+                    Snackbar.make(rootView, R.string.no_internet_connection,
+                            Snackbar.LENGTH_LONG).show();
                     return;
                 }
-//                    showSnackbar(R.string.unknown_error);
-//                Log.e(TAG, "Sign-in error: ", response.getError());
+                Snackbar.make(rootView, R.string.unknown_error,
+                        Snackbar.LENGTH_LONG).show();
             }
         }
     }
