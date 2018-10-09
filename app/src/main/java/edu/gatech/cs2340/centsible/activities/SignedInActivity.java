@@ -1,14 +1,19 @@
-package edu.gatech.cs2340.centsible;
+package edu.gatech.cs2340.centsible.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.appcompat.app.AppCompatActivity;
+import edu.gatech.cs2340.centsible.R;
+import edu.gatech.cs2340.centsible.model.UserFacade;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.util.ExtraConstants;
@@ -37,7 +42,8 @@ public class SignedInActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    startActivity(LandingPage.createIntent(SignedInActivity.this));
+                                    startActivity(LandingPageActivity.createIntent(
+                                            SignedInActivity.this));
                                     finish();
                                 } else {
                                     Snackbar.make(rootView,
@@ -48,6 +54,9 @@ public class SignedInActivity extends AppCompatActivity {
                         });
             }
         });
+
+        TextView nameField = (TextView) findViewById(R.id.nameText);
+        nameField.setText(UserFacade.getInstance().getUser().getDisplayName()); // set text to be displayName
 
     }
 
