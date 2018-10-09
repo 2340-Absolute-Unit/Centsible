@@ -1,30 +1,33 @@
-package edu.gatech.cs2340.centsible;
+package edu.gatech.cs2340.centsible.activities;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import androidx.annotation.NonNull;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import edu.gatech.cs2340.centsible.R;
+import edu.gatech.cs2340.centsible.model.UserFacade;
+
 import android.view.View;
 import android.widget.Button;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Arrays;
 
-public class LandingPage extends AppCompatActivity {
+public class LandingPageActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 123;
     private View rootView;
 
     @NonNull
     public static Intent createIntent(@NonNull Context context) {
-        return new Intent(context, LandingPage.class);
+        return new Intent(context, LandingPageActivity.class);
     }
 
     @Override
@@ -34,15 +37,6 @@ public class LandingPage extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         rootView = findViewById(R.id.root);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         Button signin = (Button) findViewById(R.id.sign_in_button);
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,9 +62,8 @@ public class LandingPage extends AppCompatActivity {
 
             // Successfully signed in
             if (resultCode == RESULT_OK) {
-                System.out.println("HELLO");
+                UserFacade.getInstance().setUser(FirebaseAuth.getInstance().getCurrentUser());
                 startActivity(SignedInActivity.createIntent(this, response));
-
                 finish();
             } else {
 

@@ -1,10 +1,10 @@
-package edu.gatech.cs2340.centsible;
+package edu.gatech.cs2340.centsible.activities;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import androidx.appcompat.app.AppCompatActivity;
+
+import edu.gatech.cs2340.centsible.R;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -17,7 +17,7 @@ public class SplashScreen extends AppCompatActivity {
         Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             public void run() {
-                startActivity(LandingPage.createIntent(SplashScreen.this));
+                startActivity(LandingPageActivity.createIntent(SplashScreen.this));
             }
         };
 
