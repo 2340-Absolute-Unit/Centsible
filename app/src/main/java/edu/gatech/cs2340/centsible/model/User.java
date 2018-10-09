@@ -89,7 +89,8 @@ public class User {
                         }
                     } else {
                         entitlements.add(UserEntitlements.USER);
-                        String[] list = {"USER"};
+                        ArrayList<String> list = new ArrayList<>();
+                        list.add("USER");
                         Map<String, Object> user = new HashMap<>();
                         user.put("entitlements", list);
                         user.put("uid", uid);
