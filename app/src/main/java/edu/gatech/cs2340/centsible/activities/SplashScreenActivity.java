@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import edu.gatech.cs2340.centsible.R;
 
-public class SplashScreen extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +17,7 @@ public class SplashScreen extends AppCompatActivity {
         Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             public void run() {
-                startActivity(LandingPageActivity.createIntent(SplashScreen.this));
+                startActivity(LandingPageActivity.createIntent(SplashScreenActivity.this));
             }
         };
 
