@@ -63,7 +63,7 @@ public class LandingPageActivity extends AppCompatActivity {
             // Successfully signed in
             if (resultCode == RESULT_OK) {
                 UserFacade.getInstance().setUser(FirebaseAuth.getInstance().getCurrentUser());
-                startActivity(SignedInActivity.createIntent(this, response));
+                startActivity(StorageActivity.createIntent(this, response));
                 finish();
             } else {
 
