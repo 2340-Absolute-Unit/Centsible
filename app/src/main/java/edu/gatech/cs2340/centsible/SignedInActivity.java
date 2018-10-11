@@ -37,7 +37,7 @@ public class SignedInActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    startActivity(LandingPage.createIntent(SignedInActivity.this));
+                                    startActivity(StorageActivity.createIntent(SignedInActivity.this));
                                     finish();
                                 } else {
                                     Snackbar.make(rootView,

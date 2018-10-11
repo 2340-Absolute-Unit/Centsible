@@ -69,7 +69,7 @@ public class LandingPage extends AppCompatActivity {
             // Successfully signed in
             if (resultCode == RESULT_OK) {
                 System.out.println("HELLO");
-                startActivity(SignedInActivity.createIntent(this, response));
+                startActivity(StorageActivity.createIntent(this, response));
 
                 finish();
             } else {
