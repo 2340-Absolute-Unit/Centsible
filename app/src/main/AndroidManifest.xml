@@ -26,6 +26,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.SignedInActivity"></activity>
+        <activity android:name=".activities.StorageActivity"></activity>
     </application>
 
 </manifest>
