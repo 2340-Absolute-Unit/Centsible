@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/root"
-        tools:context=".SignedInActivity">
+        tools:context=".activities.SignedInActivity">
 
     <Button
             android:text="@string/to_file_page"
@@ -14,4 +14,13 @@
             android:layout_height="wrap_content"
             android:id="@+id/sign_out_button"
             android:layout_centerInParent="true"/>
+
+    <TextView
+        android:id="@+id/nameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="171dp"
+        android:text="Name" />
 </RelativeLayout>
