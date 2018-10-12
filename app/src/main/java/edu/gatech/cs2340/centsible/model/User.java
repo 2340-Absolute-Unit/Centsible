@@ -1,11 +1,13 @@
 package edu.gatech.cs2340.centsible.model;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -18,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+import edu.gatech.cs2340.centsible.activities.SignedInActivity;
 
 
 // POJO
@@ -47,8 +50,12 @@ public class User {
         return entitlements;
     }
 
+    public void setEntitlements(ArrayList<UserEntitlements> entitlements) {
+        this.entitlements = entitlements;
+    }
+
     public boolean isEmailVerified() {
-        return isEmailVerified();
+        return emailVerified;
     }
 
     public User(FirebaseUser user) {
@@ -111,6 +118,8 @@ public class User {
         });
 
     }
+
+
 
 
 }

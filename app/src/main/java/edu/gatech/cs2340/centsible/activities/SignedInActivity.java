@@ -4,12 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import edu.gatech.cs2340.centsible.R;
+import edu.gatech.cs2340.centsible.model.User;
+import edu.gatech.cs2340.centsible.model.UserEntitlements;
 import edu.gatech.cs2340.centsible.model.UserFacade;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,6 +26,16 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SignedInActivity extends AppCompatActivity {
 
@@ -57,6 +72,7 @@ public class SignedInActivity extends AppCompatActivity {
 
         TextView nameField = (TextView) findViewById(R.id.nameText);
         nameField.setText(UserFacade.getInstance().getUser().getDisplayName()); // set text to be displayName
+        setEntitlementsText();
 
     }
 
@@ -67,5 +83,61 @@ public class SignedInActivity extends AppCompatActivity {
                 .putExtra(ExtraConstants.IDP_RESPONSE, response);
     }
 
+    public void setEntitlementsText() {
+        final String TAG  = "Centsible";
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        final String uid = UserFacade.getInstance().getUser().getUid();
+        final CollectionReference usersRef = db.collection("users");
+        Query query = usersRef.whereEqualTo("uid", uid);
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    QuerySnapshot s = task.getResult();
+                    if (!(task.getResult().isEmpty())) {
+                        if (task.getResult().size() > 1) {
+                            Log.d(TAG, "There are multiple documents matching the uid" + uid);
+                            return; // error handling
+                        }
+                        ArrayList<UserEntitlements> userEntitlements = new ArrayList<>();
+                        for (QueryDocumentSnapshot document: task.getResult()) {
+                            List<String> remoteEntitlements = (List<String>) document.getData().get("entitlements");
+                            for (String j: remoteEntitlements) {
+                                userEntitlements.add(UserEntitlements.valueOf(j));
+                            }
+                        }
+                        UserFacade.getInstance().getUser().setEntitlements(userEntitlements);
+                    } else {
+                        ArrayList<UserEntitlements> userEntitlements = new ArrayList<>();
+                        userEntitlements.add(UserEntitlements.USER);
+                        ArrayList<String> list = new ArrayList<>();
+                        list.add("USER");
+                        Map<String, Object> user = new HashMap<>();
+                        user.put("entitlements", list);
+                        user.put("uid", uid);
+                        usersRef.add(user)
+                                .addOnFailureListener(
+                                        new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.d(TAG, "Failure to add an entitlement to Firestore");
+                                            }
+                                        }
+                                );
+                    }
+                    // set UI
+                    String k = "";
+                    for (UserEntitlements ue: UserFacade.getInstance().getUser().getEntitlements()) {
+                        k += ue.toString() + " ";
+                    }
+                    TextView entitlementsField = (TextView) findViewById(R.id.entitlementsText);
+                    entitlementsField.setText(k);
+
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
+    }
 
 }
