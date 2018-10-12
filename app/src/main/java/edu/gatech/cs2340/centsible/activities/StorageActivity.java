@@ -123,7 +123,7 @@ public class StorageActivity extends AppCompatActivity {
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            StorageReference ref = storageReference.child("locations/"+ UUID.randomUUID().toString());
+            StorageReference ref = storageReference.child("locations/" + "currentLocations");
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override

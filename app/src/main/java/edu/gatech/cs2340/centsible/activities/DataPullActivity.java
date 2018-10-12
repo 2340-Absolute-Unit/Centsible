@@ -56,7 +56,8 @@ public class DataPullActivity extends AppCompatActivity {
     private File downloadedFile;
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageReference = storage.getReferenceFromUrl("gs://centsible-d48e9.appspot.com").child("locations/*");
+    StorageReference storageReference = storage.getReferenceFromUrl("gs://centsible-d48e9.appspot.com").child("locations/")
+            .child("currentLocations");
 
     @NonNull
     public static Intent createIntent(@NonNull Context context) {
