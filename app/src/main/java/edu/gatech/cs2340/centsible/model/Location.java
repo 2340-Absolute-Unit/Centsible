@@ -1,17 +1,17 @@
 package edu.gatech.cs2340.centsible.model;
 
 public class Location {
-    private String key;
-    private String name;
-    private double latitude;
-    private double longitude;
-    private String stAddress;
-    private String city;
-    private String state;
-    private String zip;
-    private String type;
-    private String phone;
-    private String website;
+    private String key = "N/A";
+    private String name = "N/A";
+    private String latitude = "N/A";
+    private String longitude = "N/A";
+    private String stAddress = "N/A";
+    private String city = "N/A";
+    private String state = "N/A";
+    private String zip = "N/A";
+    private String type = "N/A";
+    private String phone = "N/A";
+    private String website = "N/A";
 
 
     public Location() {
@@ -34,19 +34,19 @@ public class Location {
         return this.name;
     }
 
-    public void setLatitude(double inLat) {
+    public void setLatitude(String inLat) {
         this.latitude = inLat;
     }
 
-    public double getLatitude() {
+    public String getLatitude() {
         return this.latitude;
     }
 
-    public void setLongitude(double inLong) {
+    public void setLongitude(String inLong) {
         this.longitude = inLong;
     }
 
-    public double getLongitude() {
+    public String getLongitude() {
         return this.longitude;
     }
 

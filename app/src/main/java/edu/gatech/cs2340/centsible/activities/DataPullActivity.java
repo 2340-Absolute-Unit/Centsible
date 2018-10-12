@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,17 +36,20 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
 import com.opencsv.CSVReader;
 
 import edu.gatech.cs2340.centsible.R;
+import edu.gatech.cs2340.centsible.model.Location;
 
 public class DataPullActivity extends AppCompatActivity {
 
     private Button btnDownload, btnParse;
     private TextView textName, fileContent;
     private File downloadedFile;
+    private LinearLayout linLayout;
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageReference = storage.getReferenceFromUrl("gs://centsible-d48e9.appspot.com").child("locations/")
@@ -60,6 +64,7 @@ public class DataPullActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_pull);
 
+        linLayout = (LinearLayout) findViewById(R.id.dataLayout);
         btnDownload = (Button) findViewById(R.id.btnDownload);
         btnParse = (Button) findViewById(R.id.btnParse);
         textName = (TextView) findViewById(R.id.textView);
@@ -76,10 +81,11 @@ public class DataPullActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (downloadedFile != null) {
-                    parseFile();
+                    parseFile(downloadedFile);
                 }
             }
         });
+        downloadedFile = downloadFile();
 
     }
 
@@ -92,6 +98,7 @@ public class DataPullActivity extends AppCompatActivity {
                     String filename = localFile.getName();
                     textName.setText(filename);
                     Toast.makeText(DataPullActivity.this, "Downloaded", Toast.LENGTH_SHORT).show();
+                    parseFile(localFile);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -99,19 +106,23 @@ public class DataPullActivity extends AppCompatActivity {
 
                 }
             });
+
             return localFile;
         } catch (IOException e) {
             return null;
         }
     }
 
-    private void parseFile() {
+    private void parseFile(File inFile) {
         String line = "\n";
         String csvSplitBy = ",";
         BufferedReader br = null;
         String[] locations = new String[]{};
         StringBuilder outP = new StringBuilder();
+        ArrayList<Location> locArr = new ArrayList<Location>();
         int counter = 0;
+        LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
         try {
             /*br = new BufferedReader(new FileReader(downloadedFile));
@@ -128,7 +139,7 @@ public class DataPullActivity extends AppCompatActivity {
 
             // Create an object of filereader
             // class with CSV file as a parameter.
-            FileReader filereader = new FileReader(downloadedFile);
+            FileReader filereader = new FileReader(inFile);
 
             // create csvReader object passing
             // file reader as a parameter
@@ -137,11 +148,59 @@ public class DataPullActivity extends AppCompatActivity {
 
             // we are going to read data line by line
             while ((nextRecord = csvReader.readNext()) != null) {
-                for (String cell : nextRecord) {
-                    outP.append(cell);
+                Location tempLoc = new Location();
+                for (int i = 0; i < 11; i++) {
+                    outP.append(nextRecord[i]);
+                    if (i == 0) {
+                        tempLoc.setKey(nextRecord[i]);
+                    }
+                    if (i == 1) {
+                        tempLoc.setName(nextRecord[i]);
+                    }
+                    if (i == 2) {
+                        tempLoc.setLatitude(nextRecord[i]);
+                    }
+                    if (i == 3) {
+                        tempLoc.setLongitude(nextRecord[i]);
+                    }
+                    if (i == 4) {
+                        tempLoc.setStAddress(nextRecord[i]);
+                    }
+                    if (i == 5) {
+                        tempLoc.setCity(nextRecord[i]);
+                    }
+                    if (i == 6) {
+                        tempLoc.setState(nextRecord[i]);
+                    }
+                    if (i == 7) {
+                        tempLoc.setZip(nextRecord[i]);
+                    }
+                    if (i == 8) {
+                        tempLoc.setType(nextRecord[i]);
+                    }
+                    if (i == 9) {
+                        tempLoc.setPhone(nextRecord[i]);
+                    }
+                    if (i == 10) {
+                        tempLoc.setWebsite(nextRecord[i]);
+                    }
                 }
-                fileContent.setText(outP);
+                locArr.add(tempLoc);
+
             }
+            for (Location loc : locArr) {
+                String tempStr = loc.getKey() + " | " + loc.getName() + " | " + loc.getLatitude()
+                        + " | " + loc.getLongitude() + " | " + loc.getStAddress() + " | "
+                        + loc.getCity() + " | " + loc.getState() + " | " + loc.getZip() + " | "
+                        + loc.getType() + " | " + loc.getPhone() + " | " + loc.getWebsite() + "\n";
+
+                TextView tv=new TextView(this);
+                tv.setLayoutParams(lparams);
+                tv.setText(tempStr);
+                this.linLayout.addView(tv);
+            }
+
+            //fileContent.setText(tempStr);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException l) {
