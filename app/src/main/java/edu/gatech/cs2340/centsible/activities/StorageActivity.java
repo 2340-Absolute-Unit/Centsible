@@ -45,7 +45,7 @@ import edu.gatech.cs2340.centsible.R;
 
 public class StorageActivity extends AppCompatActivity {
     // [START storage_field_declaration]
-    private Button btnChoose, btnUpload;
+    private Button btnChoose, btnUpload, goToDownload;
     private ImageView imageView;
 
     private Uri filePath;
@@ -66,9 +66,10 @@ public class StorageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_storage1);
 
+        goToDownload = (Button) findViewById(R.id.goToDownload);
         btnChoose = (Button) findViewById(R.id.btnChoose);
         btnUpload = (Button) findViewById(R.id.btnUpload);
-        imageView = (ImageView) findViewById(R.id.imgView);
+        //imageView = (ImageView) findViewById(R.id.imgView);
 
         btnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,11 +84,18 @@ public class StorageActivity extends AppCompatActivity {
                 uploadImage();
             }
         });
+
+        goToDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(DataPullActivity.createIntent(StorageActivity.this));
+            }
+        });
     }
 
     private void chooseImage() {
         Intent intent = new Intent();
-        intent.setType("image/*");
+        intent.setType("text/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select File"), PICK_IMAGE_REQUEST);
     }
@@ -97,13 +105,13 @@ public class StorageActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             filePath = data.getData();
-            try {
+            /*try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 imageView.setImageBitmap(bitmap);
             }
             catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
         }
     }
 
@@ -115,7 +123,7 @@ public class StorageActivity extends AppCompatActivity {
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
+            StorageReference ref = storageReference.child("locations/"+ UUID.randomUUID().toString());
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
