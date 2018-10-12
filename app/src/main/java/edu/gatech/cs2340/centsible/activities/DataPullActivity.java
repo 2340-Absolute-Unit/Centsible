@@ -97,6 +97,7 @@ public class DataPullActivity extends AppCompatActivity {
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     String filename = localFile.getName();
                     textName.setText(filename);
+                    Toast.makeText(DataPullActivity.this, "Downloaded", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -119,6 +120,7 @@ public class DataPullActivity extends AppCompatActivity {
             br = new BufferedReader(new FileReader(downloadedFile));
             while ((line = br.readLine()) != null) {
                 String[] locations = line.split(csvSplitBy);
+                String[] tester = new String[]{"1", "2", "3"};
                 fileContent.setText(Arrays.toString(locations));
             }
         } catch (FileNotFoundException e) {
