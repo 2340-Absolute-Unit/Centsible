@@ -20,4 +20,12 @@
         connectivity for login</string>
     <string name="unknown_error">An unexpected error occurred</string>
     <string name="title_activity_landing_page">LandingPage</string>
+    <string name="choose">Choose</string>
+    <string name="upload">Upload</string>
+    <string name="to_file_page">To File Page</string>
+    <string name="download">Download</string>
+    <string name="parse">Parse</string>
+    <string name="textview">TextView</string>
+    <string name="go_to_download">Go to Download</string>
+    <string name="filename">filename</string>
 </resources>
