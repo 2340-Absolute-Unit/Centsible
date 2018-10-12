@@ -1,24 +1,15 @@
 package edu.gatech.cs2340.centsible.activities;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -46,6 +37,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.UUID;
+import com.opencsv.CSVReader;
 
 import edu.gatech.cs2340.centsible.R;
 
@@ -83,7 +75,9 @@ public class DataPullActivity extends AppCompatActivity {
         btnParse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                parseFile();
+                if (downloadedFile != null) {
+                    parseFile();
+                }
             }
         });
 
@@ -112,16 +106,41 @@ public class DataPullActivity extends AppCompatActivity {
     }
 
     private void parseFile() {
-        String line = "";
+        String line = "\n";
         String csvSplitBy = ",";
         BufferedReader br = null;
+        String[] locations = new String[]{};
+        StringBuilder outP = new StringBuilder();
+        int counter = 0;
 
         try {
-            br = new BufferedReader(new FileReader(downloadedFile));
+            /*br = new BufferedReader(new FileReader(downloadedFile));
             while ((line = br.readLine()) != null) {
-                String[] locations = line.split(csvSplitBy);
+                locations = line.split(csvSplitBy);
                 String[] tester = new String[]{"1", "2", "3"};
-                fileContent.setText(Arrays.toString(locations));
+                //counter++;
+            }
+            for (String word : locations) {
+                outP.append(word);
+            }
+
+            fileContent.setText(Arrays.toString(locations));*/
+
+            // Create an object of filereader
+            // class with CSV file as a parameter.
+            FileReader filereader = new FileReader(downloadedFile);
+
+            // create csvReader object passing
+            // file reader as a parameter
+            CSVReader csvReader = new CSVReader(filereader);
+            String[] nextRecord;
+
+            // we are going to read data line by line
+            while ((nextRecord = csvReader.readNext()) != null) {
+                for (String cell : nextRecord) {
+                    outP.append(cell);
+                }
+                fileContent.setText(outP);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
