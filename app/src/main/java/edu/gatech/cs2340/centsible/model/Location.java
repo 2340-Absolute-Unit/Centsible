@@ -1,6 +1,8 @@
 package edu.gatech.cs2340.centsible.model;
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable {
     private String key = "N/A";
     private String name = "N/A";
     private String latitude = "N/A";

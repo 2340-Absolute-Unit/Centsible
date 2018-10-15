@@ -28,6 +28,7 @@
         <activity android:name=".activities.SignedInActivity"></activity>
         <activity android:name=".activities.StorageActivity"></activity>
         <activity android:name=".activities.DataPullActivity" />
+        <activity android:name=".activities.DetailedLocation" />
     </application>
 
 </manifest>

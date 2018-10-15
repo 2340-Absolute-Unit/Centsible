@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -36,6 +38,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
@@ -44,12 +47,13 @@ import com.opencsv.CSVReader;
 import edu.gatech.cs2340.centsible.R;
 import edu.gatech.cs2340.centsible.model.Location;
 
-public class DataPullActivity extends AppCompatActivity {
+public class DataPullActivity extends AppCompatActivity implements Serializable {
 
     private Button btnDownload, btnParse;
     private TextView textName, fileContent;
     private File downloadedFile;
     private LinearLayout linLayout;
+    private boolean parsed = false;
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageReference = storage.getReferenceFromUrl("gs://centsible-d48e9.appspot.com").child("locations/")
@@ -80,12 +84,13 @@ public class DataPullActivity extends AppCompatActivity {
         btnParse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (downloadedFile != null) {
+                if (downloadedFile != null && !parsed) {
                     parseFile(downloadedFile);
                 }
             }
         });
         downloadedFile = downloadFile();
+
 
     }
 
@@ -98,7 +103,9 @@ public class DataPullActivity extends AppCompatActivity {
                     String filename = localFile.getName();
                     textName.setText(filename);
                     Toast.makeText(DataPullActivity.this, "Downloaded", Toast.LENGTH_SHORT).show();
-                    parseFile(localFile);
+                    if (!parsed) {
+                        parseFile(localFile);
+                    }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -188,17 +195,35 @@ public class DataPullActivity extends AppCompatActivity {
                 locArr.add(tempLoc);
 
             }
+            int locCount = 0;
             for (Location loc : locArr) {
                 String tempStr = loc.getKey() + " | " + loc.getName() + " | " + loc.getLatitude()
                         + " | " + loc.getLongitude() + " | " + loc.getStAddress() + " | "
                         + loc.getCity() + " | " + loc.getState() + " | " + loc.getZip() + " | "
                         + loc.getType() + " | " + loc.getPhone() + " | " + loc.getWebsite() + "\n";
 
-                TextView tv=new TextView(this);
-                tv.setLayoutParams(lparams);
-                tv.setText(tempStr);
-                this.linLayout.addView(tv);
+                Button btn = new Button(this);
+                btn.setId(locCount);
+                locCount++;
+                final int id_ = btn.getId();
+                final Location outLoc = loc;
+                btn.setText(loc.getName());
+                this.linLayout.addView(btn,lparams);
+                Button btn1 = ((Button) findViewById(id_));
+                btn1.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View view) {
+                        Intent intent = new Intent(DetailedLocation.createIntent(DataPullActivity.this));
+                        intent.putExtra("key", outLoc);
+                        startActivity(intent);
+                        //startActivity(DetailedLocation.createIntent(DataPullActivity.this));
+                    }
+                });
+                //TextView tv=new TextView(this);
+                //tv.setLayoutParams(lparams);
+                //tv.setText(tempStr);
+                //this.linLayout.addView(tv);
             }
+            this.parsed = true;
 
             //fileContent.setText(tempStr);
         } catch (FileNotFoundException e) {
