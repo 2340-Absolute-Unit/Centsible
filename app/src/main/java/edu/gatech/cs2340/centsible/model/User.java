@@ -32,6 +32,7 @@ public class User {
     private String uid;
     private String email;
     private boolean emailVerified;
+    private boolean isLocked;
     public ArrayList<UserEntitlements> entitlements = new ArrayList<>();
 
     public String getDisplayName() {
@@ -59,14 +60,6 @@ public class User {
     }
 
     public User(FirebaseUser user) {
-        displayName = user.getDisplayName();
-        uid = user.getUid();
-        email = user.getEmail();
-        emailVerified = user.isEmailVerified();
-        retrieveEntitlementsFromFirestore();
-    }
-
-    public void refreshInformation(FirebaseUser user) {
         displayName = user.getDisplayName();
         uid = user.getUid();
         email = user.getEmail();
