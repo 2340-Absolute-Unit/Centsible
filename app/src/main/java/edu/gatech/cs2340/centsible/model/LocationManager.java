@@ -21,6 +21,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -41,8 +42,9 @@ public class LocationManager {
         return locations.get(key);
     }
 
-    public Map<String, Location> getList() {
-        return locations;
+    public List<Location> getList() {
+        List<Location> list = new ArrayList<Location>(locations.values());
+        return list;
     }
 
     HashMap<String, Location> locations;

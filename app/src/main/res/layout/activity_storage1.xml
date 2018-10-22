@@ -44,19 +44,28 @@
         android:id="@+id/sign_out_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/goToDownload"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="198dp"
+        android:layout_marginTop="32dp"
         android:text="Sign Out" />
 
     <Button
         android:id="@+id/add_donation_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/sign_out_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="287dp"
+        android:layout_marginTop="41dp"
         android:text="Add Donation" />
+
+    <Button
+        android:id="@+id/list_donation_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/add_donation_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        android:text="List Donations" />
     <!--
     <ImageView
         android:id="@+id/imgView"

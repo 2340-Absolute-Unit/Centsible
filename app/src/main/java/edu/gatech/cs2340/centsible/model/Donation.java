@@ -5,13 +5,13 @@ import com.google.firebase.firestore.ServerTimestamp;
 import java.util.Date;
 
 public class Donation {
-    private Location location;
-    private String title;
+    private String location;
+    private String name;
     private String shortDescription;
     private String longDescription;
     private double value;
     private String category;
-    private User enteredBy;
+    private String enteredBy;
     private @ServerTimestamp Date lastUpdated;
 
 
@@ -19,11 +19,11 @@ public class Donation {
 
     }
 
-    public Donation(Location location, String title, String shortDescription,
-                    String longDescription, double value, String category, User enteredBy,
+    public Donation(String location, String name, String shortDescription,
+                    String longDescription, double value, String category, String enteredBy,
                     Date lastUpdated) {
         this.location = location;
-        this.title = title;
+        this.name = name;
         this.shortDescription = shortDescription;
         this.longDescription = longDescription;
         this.value = value;
@@ -32,12 +32,12 @@ public class Donation {
         this.lastUpdated = lastUpdated;
     }
 
-    public Location getLocation() {
+    public String getLocation() {
         return location;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
     public String getShortDescription() {
@@ -57,7 +57,7 @@ public class Donation {
     }
 
 
-    public User getEnteredBy() {
+    public String getEnteredBy() {
         return enteredBy;
     }
 

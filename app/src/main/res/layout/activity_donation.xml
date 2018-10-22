@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".activities.DonationActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/donation_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        tools:listitem="@layout/donation_item" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

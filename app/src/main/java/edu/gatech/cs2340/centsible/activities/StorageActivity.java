@@ -48,6 +48,7 @@ import java.io.InputStream;
 import java.util.UUID;
 
 import edu.gatech.cs2340.centsible.R;
+import edu.gatech.cs2340.centsible.adapter.DonationAdapter;
 
 public class StorageActivity extends AppCompatActivity {
     // [START storage_field_declaration]
@@ -99,6 +100,14 @@ public class StorageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(AddDonationActivity.createIntent(StorageActivity.this));
+            }
+        });
+
+        Button listDonation = (Button) findViewById(R.id.list_donation_button);
+        listDonation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(DonationActivity.createIntent(StorageActivity.this));
             }
         });
 
