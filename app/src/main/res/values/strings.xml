@@ -19,5 +19,5 @@
     <string name="no_internet_connection">There is no internet
         connectivity for login</string>
     <string name="unknown_error">An unexpected error occurred</string>
-    <string name="title_activity_landing_page">LandingPage</string>
+    <string name="title_activity_landing_page">Centsible</string>
 </resources>
