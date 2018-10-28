@@ -18,6 +18,7 @@ import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
 
+import edu.gatech.cs2340.centsible.model.LocationManager;
 import java.util.Arrays;
 
 public class LandingPageActivity extends AppCompatActivity {
@@ -37,22 +38,17 @@ public class LandingPageActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         rootView = findViewById(R.id.root);
-        Button signin = (Button) findViewById(R.id.sign_in_button);
-        signin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivityForResult(
-                        AuthUI.getInstance()
-                                .createSignInIntentBuilder()
-                                .setAvailableProviders(Arrays.asList(
-                                        new AuthUI.IdpConfig.GoogleBuilder().build(),
-                                        new AuthUI.IdpConfig.EmailBuilder().build(),
-                                        new AuthUI.IdpConfig.PhoneBuilder().build(),
-                                        new AuthUI.IdpConfig.AnonymousBuilder().build()))
-                                .build(),
-                        RC_SIGN_IN);
-            }
-        });
+        LocationManager lm = LocationManager.getInstance();
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(Arrays.asList(
+                                new AuthUI.IdpConfig.GoogleBuilder().build(),
+                                new AuthUI.IdpConfig.EmailBuilder().build(),
+                                new AuthUI.IdpConfig.PhoneBuilder().build(),
+                                new AuthUI.IdpConfig.AnonymousBuilder().build()))
+                        .build(),
+                RC_SIGN_IN);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

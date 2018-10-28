@@ -107,4 +107,9 @@ public class Location implements Serializable {
     public String getWebsite() {
         return this.website;
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }
