@@ -3,6 +3,7 @@ package edu.gatech.cs2340.centsible.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import edu.gatech.cs2340.centsible.Filters;
 import edu.gatech.cs2340.centsible.R;
 
 import android.content.Context;
@@ -15,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.gatech.cs2340.centsible.adapter.DonationAdapter;
+import edu.gatech.cs2340.centsible.fragments.FilterDialogFragment;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
@@ -24,12 +26,13 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
 public class DonationActivity extends AppCompatActivity
-        implements DonationAdapter.OnDonationSelectedListener {
+        implements DonationAdapter.OnDonationSelectedListener, FilterDialogFragment.FilterListener {
     @BindView(R.id.donation_recycler)
     RecyclerView mRecyclerView;
 
     private FirebaseFirestore mFirestore;
     private Query mQuery;
+    private FilterDialogFragment mFilterDialog;
 
     private DonationAdapter mAdapter;
     private static final String TAG = "CentsibleTAG";
@@ -45,6 +48,8 @@ public class DonationActivity extends AppCompatActivity
         ButterKnife.bind(this);
         initFirestore();
         initRecyclerView();
+
+        mFilterDialog = new FilterDialogFragment();
     }
 
     private void initFirestore() {
@@ -103,5 +108,40 @@ public class DonationActivity extends AppCompatActivity
         if (mAdapter != null) {
             mAdapter.stopListening();
         }
+    }
+
+    @Override
+    public void onFilter(Filters filters) {
+        Query query = mFirestore.collection("donations");
+
+        if (filters.hasCategory()) {
+            query = query.whereEqualTo("category", filters.getCategory());
+        }
+
+        if (filters.hasName()) {
+            query = query.whereEqualTo("name", filters.getName());
+        }
+
+        if (filters.hasLocation()) {
+            query = query.whereEqualTo("location", filters.getLocation());
+        }
+
+        query.limit(100);
+
+        mQuery = query;
+        mAdapter.setQuery(query);
+    }
+
+    @OnClick(R.id.filter_bar)
+    public void onFilterClicked() {
+        // Show the dialog containing filter options
+        mFilterDialog.show(getSupportFragmentManager(), FilterDialogFragment.TAG);
+    }
+
+    @OnClick(R.id.button_clear_filter)
+    public void onClearFilterClicked() {
+        mFilterDialog.resetFilters();
+
+        onFilter(Filters.getDefault());
     }
 }
