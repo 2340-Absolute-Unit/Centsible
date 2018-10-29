@@ -6,12 +6,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/root"
-        tools:context=".SignedInActivity">
+        tools:context=".activities.SignedInActivity">
 
     <Button
-            android:text="@string/action_sign_out_short"
+            android:text="@string/to_file_page"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/sign_out_button"
             android:layout_centerInParent="true"/>
+
+    <TextView
+        android:id="@+id/nameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/entitlementsText"
+        android:layout_marginBottom="10dp"
+        android:text="Name" />
+
+    <TextView
+        android:id="@+id/entitlementsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@+id/sign_out_button"
+        android:text="Entitlements" />
 </RelativeLayout>

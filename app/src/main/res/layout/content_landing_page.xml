@@ -7,12 +7,5 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/activity_landing_page"
-        tools:context=".LandingPage">
-
-    <Button
-            android:text="@string/action_sign_in_short"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:id="@+id/sign_in_button"
-            android:layout_centerInParent="true"/>
+        tools:context=".activities.LandingPageActivity">
 </RelativeLayout>
