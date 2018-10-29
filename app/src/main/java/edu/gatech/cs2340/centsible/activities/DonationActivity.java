@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +30,9 @@ public class DonationActivity extends AppCompatActivity
         implements DonationAdapter.OnDonationSelectedListener, FilterDialogFragment.FilterListener {
     @BindView(R.id.donation_recycler)
     RecyclerView mRecyclerView;
+
+    @BindView(R.id.no_results_error)
+    TextView mNoResultsError;
 
     private FirebaseFirestore mFirestore;
     private Query mQuery;
@@ -69,8 +73,10 @@ public class DonationActivity extends AppCompatActivity
                 // Show/hide content if the query returns empty.
                 if (getItemCount() == 0) {
                     mRecyclerView.setVisibility(View.GONE);
+                    mNoResultsError.setVisibility(View.VISIBLE);
                 } else {
                     mRecyclerView.setVisibility(View.VISIBLE);
+                    mNoResultsError.setVisibility(View.GONE);
                 }
             }
 
