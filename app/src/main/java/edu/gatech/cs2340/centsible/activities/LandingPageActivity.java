@@ -47,14 +47,10 @@ public class LandingPageActivity extends AppCompatActivity {
                                 new AuthUI.IdpConfig.EmailBuilder().build(),
                                 new AuthUI.IdpConfig.PhoneBuilder().build(),
                                 new AuthUI.IdpConfig.AnonymousBuilder().build()))
-			.setLogo(R.mipmap.centsibleblack)
+			            .setLogo(R.mipmap.centsibleblack)
                         .setTheme(R.style.LoginTheme)
                         .build(),
                 RC_SIGN_IN);
-                                .build(),
-                        RC_SIGN_IN);
-            }
-        });
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
