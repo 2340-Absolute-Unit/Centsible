@@ -29,6 +29,7 @@ import java.util.Map;
 public class AddDonationActivity extends AppCompatActivity {
 
     private FirebaseFirestore mFirestore;
+    private Double value;
 
     public static Intent createIntent(@NonNull Context context) {
         return new Intent(context, AddDonationActivity.class);
@@ -49,7 +50,7 @@ public class AddDonationActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView nameTextView = findViewById(R.id.name_textfield);
+                TextView nameTextView = findViewById(R.id.nameTextField);
                 TextView shortDescriptionTextView = findViewById(R.id.shortDescriptionTextField);
                 TextView longDescriptionTextView = findViewById(R.id.longDescriptionTextField);
                 TextView categoryTextView = findViewById(R.id.categoryTextField);
@@ -58,7 +59,11 @@ public class AddDonationActivity extends AppCompatActivity {
                 String shortDescription = shortDescriptionTextView.getText().toString();
                 String longDescription = longDescriptionTextView.getText().toString();
                 String category = categoryTextView.getText().toString();
-                Double value = Double.valueOf(valueTextField.getText().toString());
+                if (valueTextField.getText().toString().equals("")) {
+                    value = 0.0;
+                } else {
+                    value = Double.valueOf(valueTextField.getText().toString());
+                }
                 Location loc = (Location) spinner.getSelectedItem();
 
                 Donation d = new Donation(loc.getKey(), name, shortDescription, longDescription, value,
