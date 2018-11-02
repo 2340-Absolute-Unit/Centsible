@@ -18,7 +18,6 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -50,7 +49,7 @@ public class AddDonationActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView nameTextView = findViewById(R.id.nameTextField);
+                TextView nameTextView = findViewById(R.id.name_textfield);
                 TextView shortDescriptionTextView = findViewById(R.id.shortDescriptionTextField);
                 TextView longDescriptionTextView = findViewById(R.id.longDescriptionTextField);
                 TextView categoryTextView = findViewById(R.id.categoryTextField);

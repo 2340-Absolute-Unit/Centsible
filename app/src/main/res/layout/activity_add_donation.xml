@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/nameTextField"
+        android:id="@+id/name_textfield"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -39,7 +39,7 @@
         android:hint="Short Description"
         android:inputType="textMultiLine"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameTextField" />
+        app:layout_constraintTop_toBottomOf="@+id/name_textfield" />
 
     <EditText
         android:id="@+id/longDescriptionTextField"
