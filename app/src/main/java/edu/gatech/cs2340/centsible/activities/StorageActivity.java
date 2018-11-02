@@ -52,7 +52,7 @@ import edu.gatech.cs2340.centsible.adapter.DonationAdapter;
 
 public class StorageActivity extends AppCompatActivity {
     // [START storage_field_declaration]
-    private Button btnChoose, btnUpload, goToDownload;
+    private Button btnChoose, btnUpload, goToDownload, goToCompleteMap;
     private ImageView imageView;
 
     private Uri filePath;
@@ -108,6 +108,15 @@ public class StorageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(DonationActivity.createIntent(StorageActivity.this));
+            }
+        });
+
+        Button goToCompleteMap = (Button) findViewById(R.id.goToMap);
+        goToCompleteMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CompleteMapActivity.createIntent(StorageActivity.this));
+                startActivity(intent);
             }
         });
 

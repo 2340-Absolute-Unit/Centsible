@@ -10,27 +10,9 @@
     tools:paddingLeft="16dp"
     tools:paddingRight="16dp">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/filename" />
-
     <Button
-        android:id="@+id/btnDownload"
+        android:id="@+id/mapButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/download" />
-
-    <Button
-        android:id="@+id/btnParse"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/parse" />
-
-    <TextView
-        android:id="@+id/fileContent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="" />
+        android:text="To Map" />
 </LinearLayout>
