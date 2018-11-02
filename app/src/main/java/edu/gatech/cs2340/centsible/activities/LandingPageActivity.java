@@ -47,7 +47,7 @@ public class LandingPageActivity extends AppCompatActivity {
                                 new AuthUI.IdpConfig.EmailBuilder().build(),
                                 new AuthUI.IdpConfig.PhoneBuilder().build(),
                                 new AuthUI.IdpConfig.AnonymousBuilder().build()))
-			            .setLogo(R.mipmap.centsibleblack)
+			            .setLogo(R.mipmap.loginlogo)
                         .setTheme(R.style.LoginTheme)
                         .build(),
                 RC_SIGN_IN);
