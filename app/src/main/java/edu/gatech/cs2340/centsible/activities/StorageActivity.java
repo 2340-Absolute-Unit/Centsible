@@ -119,14 +119,14 @@ public class StorageActivity extends AppCompatActivity {
         btnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chooseImage();
+                chooseText();
             }
         });
 
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadImage();
+                uploadText();
             }
         });
 
@@ -138,7 +138,7 @@ public class StorageActivity extends AppCompatActivity {
         });
     }
 
-    private void chooseImage() {
+    private void chooseText() {
         Intent intent = new Intent();
         intent.setType("text/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -160,7 +160,7 @@ public class StorageActivity extends AppCompatActivity {
         }
     }
 
-    private void uploadImage() {
+    private void uploadText() {
 
         if(filePath != null)
         {
