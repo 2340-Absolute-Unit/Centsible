@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -20,13 +19,12 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.util.Objects;
 
 import javax.annotation.Nullable;
 
 public class DetailedDonationActivity extends AppCompatActivity implements EventListener<DocumentSnapshot> {
 
-    public static String donationId;
     public static final String DONATION_ID = "DONATION_ID";
 
     @BindView(R.id.donation_name)
@@ -50,7 +48,6 @@ public class DetailedDonationActivity extends AppCompatActivity implements Event
     @BindView(R.id.donation_location)
     TextView locationView;
 
-    private FirebaseFirestore mFirestore;
     private DocumentReference mDonationRef;
     private ListenerRegistration mDonationsListener;
 
@@ -60,12 +57,12 @@ public class DetailedDonationActivity extends AppCompatActivity implements Event
         setContentView(R.layout.activity_detailed_donation);
         ButterKnife.bind(this);
 
-        donationId = getIntent().getExtras().getString(DONATION_ID);
+        String donationId = Objects.requireNonNull(getIntent().getExtras()).getString(DONATION_ID);
         if (donationId == null) {
             throw new IllegalArgumentException("Must pass " + DONATION_ID);
         }
 
-        mFirestore = FirebaseFirestore.getInstance();
+        FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
 
         mDonationRef = mFirestore.collection("donations").document(donationId);
     }
@@ -93,7 +90,7 @@ public class DetailedDonationActivity extends AppCompatActivity implements Event
             Log.d("CENTSIBLE", e.toString());
             return;
         }
-        onRestaurantLoaded(documentSnapshot.toObject(Donation.class));
+        onRestaurantLoaded(Objects.requireNonNull(documentSnapshot).toObject(Donation.class));
     }
 
     private void onRestaurantLoaded(Donation d) {
@@ -103,10 +100,9 @@ public class DetailedDonationActivity extends AppCompatActivity implements Event
         longDescriptionView.setText(d.getLongDescription());
         valueView.setText(Double.toString(d.getValue()));
 
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        //DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        DateFormat df = DateFormat.getDateTimeInstance();
         dateView.setText(df.format(d.getLastUpdated()));
         locationView.setText(LocationManager.getInstance().getLocation(d.getLocation()).toString());
-
-
     }
 }

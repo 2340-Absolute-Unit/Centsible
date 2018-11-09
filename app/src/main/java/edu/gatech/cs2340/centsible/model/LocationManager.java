@@ -1,11 +1,6 @@
 package edu.gatech.cs2340.centsible.model;
 
-import android.content.Intent;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -14,15 +9,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.opencsv.CSVReader;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import androidx.annotation.NonNull;
 
 
 public class LocationManager {
@@ -30,7 +24,7 @@ public class LocationManager {
     // singleton
     private static final LocationManager INSTANCE = new LocationManager();
 
-    public LocationManager() {
+    private LocationManager() {
         retrieveLocationsFromFirebase();
     }
 
@@ -43,14 +37,13 @@ public class LocationManager {
     }
 
     public List<Location> getList() {
-        List<Location> list = new ArrayList<Location>(locations.values());
-        return list;
+        return new ArrayList<>(locations.values());
     }
 
-    HashMap<String, Location> locations;
+    private HashMap<String, Location> locations;
 
 
-    public void retrieveLocationsFromFirebase() {
+    private void retrieveLocationsFromFirebase() {
         locations = new HashMap<>();
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageReference = storage.getReferenceFromUrl("gs://centsible-d48e9.appspot.com").child("locations/")
@@ -60,38 +53,37 @@ public class LocationManager {
     }
 
 
-    private File downloadFile(StorageReference storageReference) {
+    private void downloadFile(StorageReference storageReference) {
         try {
             final File localFile = File.createTempFile("text", "csv");
             storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    String filename = localFile.getName();
+                    //String filename = localFile.getName();
                     parseFile(localFile);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
-                public void onFailure(Exception e) {
+                public void onFailure(@NonNull Exception e) {
 
                 }
             });
 
-            return localFile;
         } catch (IOException e) {
-            return null;
+            return;
         }
     }
 
     private void parseFile(File inFile) {
-        String line = "\n";
+        /*String line = "\n";
         String csvSplitBy = ",";
         BufferedReader br = null;
-        String[] locations = new String[]{};
+        String[] locations = new String[]{};*/
         StringBuilder outP = new StringBuilder();
-        ArrayList<Location> locArr = new ArrayList<Location>();
-        int counter = 0;
-        LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        ArrayList<Location> locArr = new ArrayList<>();
+        //int counter = 0;
+        /*LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);*/
 
         try {
             /*br = new BufferedReader(new FileReader(downloadedFile));
@@ -171,18 +163,17 @@ public class LocationManager {
             }
 
             //fileContent.setText(tempStr);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException l) {
             l.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
+//        } finally {
+//            if (br != null) {
+//                try {
+//                    br.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
     }
 }

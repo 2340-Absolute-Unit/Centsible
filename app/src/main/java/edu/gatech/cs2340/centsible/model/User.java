@@ -1,13 +1,11 @@
 package edu.gatech.cs2340.centsible.model;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -18,22 +16,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
-import edu.gatech.cs2340.centsible.activities.SignedInActivity;
 
 
 // POJO
 
 public class User {
-    public static final String TAG = "NEWCENTSIBLE";
+    private static final String TAG = "NEWCENTSIBLE";
 
-    private String displayName;
-    private String uid;
-    private String email;
-    private boolean emailVerified;
-    private boolean isLocked;
-    public ArrayList<UserEntitlements> entitlements = new ArrayList<>();
+    private final String displayName;
+    private final String uid;
+    //private boolean isLocked;
+    private ArrayList<UserEntitlements> entitlements = new ArrayList<>();
 
     public String getDisplayName() {
         return displayName;
@@ -43,9 +39,11 @@ public class User {
         return uid;
     }
 
-    public String getEmail() {
-        return email;
-    }
+// --Commented out by Inspection START (11/8/18, 8:26 PM):
+//    public String getEmail() {
+//        return email;
+//    }
+// --Commented out by Inspection STOP (11/8/18, 8:26 PM)
 
     public List<UserEntitlements> getEntitlements() {
         return entitlements;
@@ -55,15 +53,15 @@ public class User {
         this.entitlements = entitlements;
     }
 
-    public boolean isEmailVerified() {
+    /*public boolean isEmailVerified() {
         return emailVerified;
-    }
+    }*/
 
     public User(FirebaseUser user) {
         displayName = user.getDisplayName();
         uid = user.getUid();
-        email = user.getEmail();
-        emailVerified = user.isEmailVerified();
+        String email = user.getEmail();
+        boolean emailVerified = user.isEmailVerified();
         retrieveEntitlementsFromFirestore();
     }
 
@@ -75,14 +73,14 @@ public class User {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    QuerySnapshot s = task.getResult();
-                    if (!(task.getResult().isEmpty())) {
+                    //QuerySnapshot s = task.getResult();
+                    if (!(Objects.requireNonNull(task.getResult()).isEmpty())) {
                         if (task.getResult().size() > 1) {
                             Log.d(TAG, "There are multiple documents matching the uid" + uid);
                             return; // error handling
                         }
                         for (QueryDocumentSnapshot document: task.getResult()) {
-                            List<String> remoteEntitlements = (List<String>) document.getData().get("entitlements");
+                            @SuppressWarnings("unchecked") List<String> remoteEntitlements = (List<String>) document.getData().get("entitlements");
                             for (String j: remoteEntitlements) {
                                 entitlements.add(UserEntitlements.valueOf(j));
                             }

@@ -19,11 +19,9 @@ import butterknife.OnClick;
 import edu.gatech.cs2340.centsible.adapter.DonationAdapter;
 import edu.gatech.cs2340.centsible.fragments.FilterDialogFragment;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
 public class DonationActivity extends AppCompatActivity
@@ -80,12 +78,14 @@ public class DonationActivity extends AppCompatActivity
                 }
             }
 
-            @Override
-            protected void onError(FirebaseFirestoreException e) {
-                // Show a snackbar on errors
-                Snackbar.make(findViewById(android.R.id.content),
-                        "Error: check logs for info.", Snackbar.LENGTH_LONG).show();
-            }
+// --Commented out by Inspection START (11/8/18, 8:32 PM):
+//            @Override
+//            protected void onError(FirebaseFirestoreException e) {
+//                // Show a snackbar on errors
+//                Snackbar.make(findViewById(android.R.id.content),
+//                        "Error: check logs for info.", Snackbar.LENGTH_LONG).show();
+//            }
+// --Commented out by Inspection STOP (11/8/18, 8:32 PM)
         };
 
         mRecyclerView.setAdapter(mAdapter);

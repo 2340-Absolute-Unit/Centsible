@@ -7,13 +7,13 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,10 +21,8 @@ import edu.gatech.cs2340.centsible.R;
 import edu.gatech.cs2340.centsible.model.Location;
 
 public class DetailedLocation extends AppCompatActivity implements Serializable, OnMapReadyCallback {
-    private TextView textData;
-    private String data;
     private Location useLoc;
-    private GoogleMap mMap;
+    //private GoogleMap mMap;
 
     @NonNull
     public static Intent createIntent(@NonNull Context context) {
@@ -39,16 +37,16 @@ public class DetailedLocation extends AppCompatActivity implements Serializable,
         useLoc = (Location)intent.getSerializableExtra("key");
         //MapFragment fMap = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
 
-        textData = (TextView) findViewById(R.id.detailedData);
-        data = useLoc.getName() + "\n\n" + useLoc.getLatitude() + ", " + useLoc.getLongitude()
-            + "\n\n" + useLoc.getStAddress() + "\n\n" + useLoc.getCity() + "\n\n"
-            + useLoc.getState() + "\n\n" + useLoc.getZip() + "\n\n" + useLoc.getType()
-            + "\n\n" + useLoc.getPhone() + "\n\n" + useLoc.getWebsite();
+        TextView textData = findViewById(R.id.detailedData);
+        String data = useLoc.getName() + "\n\n" + useLoc.getLatitude() + ", " + useLoc.getLongitude()
+                + "\n\n" + useLoc.getStAddress() + "\n\n" + useLoc.getCity() + "\n\n"
+                + useLoc.getState() + "\n\n" + useLoc.getZip() + "\n\n" + useLoc.getType()
+                + "\n\n" + useLoc.getPhone() + "\n\n" + useLoc.getWebsite();
         textData.setText(data);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        Objects.requireNonNull(mapFragment).getMapAsync(this);
     }
 
     @Override

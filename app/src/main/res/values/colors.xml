@@ -4,10 +4,10 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 </resources>-->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="colorPrimary">#78DCC3</color>
     <color name="colorPrimaryDark">#4EC5A3</color>
-    <color name="colorPrimaryLight">#EDE7F6</color>
+    <color name="colorPrimaryLight" tools:keep="@color/colorPrimaryLight">#EDE7F6</color>
     <color name="colorAccent">#D54170</color>
-    <color name="colorSecondary">#FFC107</color>
+    <color name="colorSecondary" tools:keep="@color/colorSecondary">#FFC107</color>
 </resources>

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="4dp"
-        android:text="Filters"
+        android:text="@string/filters"
         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
     <!-- Food Type -->
@@ -36,7 +36,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="15dp"
         android:ems="10"
-        android:hint="Name"
+        android:hint="@string/name"
         android:inputType="textNoSuggestions"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -48,7 +48,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="15dp"
         android:ems="10"
-        android:hint="Category"
+        android:hint="@string/category"
         android:inputType="textNoSuggestions"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -68,7 +68,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cancel" />
+            android:text="@string/cancel" />
 
 
         <Button
@@ -76,7 +76,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Apply" />
+            android:text="@string/apply" />
 
     </LinearLayout>
 

@@ -1,17 +1,17 @@
-/**
- * Copyright 2017 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+/*
+  Copyright 2017 Google Inc. All Rights Reserved.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
  */
 package edu.gatech.cs2340.centsible.adapter;
 
@@ -28,8 +28,6 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-
-import javax.annotation.Nullable;
 
 /**
  * RecyclerView adapter for displaying the results of a Firestore {@link Query}.
@@ -49,9 +47,9 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
     private Query mQuery;
     private ListenerRegistration mRegistration;
 
-    private ArrayList<DocumentSnapshot> mSnapshots = new ArrayList<>();
+    private final ArrayList<DocumentSnapshot> mSnapshots = new ArrayList<>();
 
-    public FirestoreAdapter(Query query) {
+    FirestoreAdapter(Query query) {
         mQuery = query;
     }
 
@@ -93,7 +91,7 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
 
         for (DocumentChange change : documentSnapshots.getDocumentChanges()) {
             // Snapshot of the changed document
-            DocumentSnapshot snapshot = change.getDocument();
+            //DocumentSnapshot snapshot = change.getDocument();
 
             switch (change.getType()) {
                 case ADDED:
@@ -111,12 +109,12 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
         onDataChanged();
     }
 
-    protected void onDocumentAdded(DocumentChange change) {
+    private void onDocumentAdded(DocumentChange change) {
         mSnapshots.add(change.getNewIndex(), change.getDocument());
         notifyItemInserted(change.getNewIndex());
     }
 
-    protected void onDocumentModified(DocumentChange change) {
+    private void onDocumentModified(DocumentChange change) {
         if (change.getOldIndex() == change.getNewIndex()) {
             // Item changed but remained in same position
             mSnapshots.set(change.getOldIndex(), change.getDocument());
@@ -129,7 +127,7 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
         }
     }
 
-    protected void onDocumentRemoved(DocumentChange change) {
+    private void onDocumentRemoved(DocumentChange change) {
         mSnapshots.remove(change.getOldIndex());
         notifyItemRemoved(change.getOldIndex());
     }
@@ -138,11 +136,11 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
         return mSnapshots.size();
     }
 
-    protected DocumentSnapshot getSnapshot(int index) {
+    DocumentSnapshot getSnapshot(int index) {
         return mSnapshots.get(index);
     }
 
-    protected void onError(FirebaseFirestoreException e) {};
+    // --Commented out by Inspection (11/8/18, 8:26 PM):protected void onError(FirebaseFirestoreException e) {}
 
     protected void onDataChanged() {}
 }

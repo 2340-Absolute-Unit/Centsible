@@ -1,10 +1,6 @@
 package edu.gatech.cs2340.centsible;
 
-import android.content.Context;
 import android.text.TextUtils;
-
-import edu.gatech.cs2340.centsible.model.Donation;
-import com.google.firebase.firestore.Query;
 
 public class Filters {
 
@@ -15,8 +11,7 @@ public class Filters {
     public Filters() {}
 
     public static Filters getDefault() {
-        Filters filters = new Filters();
-        return filters;
+        return new Filters();
     }
 
     public boolean hasCategory() {
@@ -55,37 +50,39 @@ public class Filters {
         this.location = location;
     }
 
-    public String getSearchDescription() {
-        StringBuilder searchDescription = new StringBuilder();
-
-        if (category == null && name == null && location == null) {
-            searchDescription.append("<b>");
-            searchDescription.append("All donations");
-            searchDescription.append("</b>");
-        }
-
-        if (category != null) {
-            searchDescription.append("<b>");
-            searchDescription.append("Category: ");
-            searchDescription.append(category);
-            searchDescription.append("</b>");
-        }
-
-        if (location != null) {
-            searchDescription.append("<b>");
-            searchDescription.append("Location: ");
-            searchDescription.append(location);
-            searchDescription.append("</b>");
-        }
-
-        if (name != null) {
-            searchDescription.append("<b>");
-            searchDescription.append("Name: ");
-            searchDescription.append(name);
-            searchDescription.append("</b>");
-        }
-
-        return searchDescription.toString();
-    }
+// --Commented out by Inspection START (11/8/18, 8:13 PM):
+//    public String getSearchDescription() {
+//        StringBuilder searchDescription = new StringBuilder();
+//
+//        if (category == null && name == null && location == null) {
+//            searchDescription.append("<b>");
+//            searchDescription.append("All donations");
+//            searchDescription.append("</b>");
+//        }
+//
+//        if (category != null) {
+//            searchDescription.append("<b>");
+//            searchDescription.append("Category: ");
+//            searchDescription.append(category);
+//            searchDescription.append("</b>");
+//        }
+//
+//        if (location != null) {
+//            searchDescription.append("<b>");
+//            searchDescription.append("Location: ");
+//            searchDescription.append(location);
+//            searchDescription.append("</b>");
+//        }
+//
+//        if (name != null) {
+//            searchDescription.append("<b>");
+//            searchDescription.append("Name: ");
+//            searchDescription.append(name);
+//            searchDescription.append("</b>");
+//        }
+//
+//        return searchDescription.toString();
+//    }
+// --Commented out by Inspection STOP (11/8/18, 8:13 PM)
 
 }

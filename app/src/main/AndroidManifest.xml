@@ -26,7 +26,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:fullBackupContent="@xml/backup_descriptor">
         <activity
             android:name=".activities.LandingPageActivity"
             android:label="@string/title_activity_landing_page"
@@ -61,7 +62,7 @@
             android:label="@string/title_activity_add_donation"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.DonationActivity" />
-        <activity android:name=".activities.DetailedDonationActivity"></activity>
+        <activity android:name=".activities.DetailedDonationActivity" />
     </application>
 
 </manifest>
