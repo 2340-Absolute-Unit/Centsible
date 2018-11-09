@@ -89,6 +89,7 @@ public class AddDonationActivity extends AppCompatActivity {
 
 
                 startActivity(DonationActivity.createIntent(AddDonationActivity.this));
+                finish();
             }
         });
         Button cancelButton = (Button) findViewById(R.id.cancel_button);
