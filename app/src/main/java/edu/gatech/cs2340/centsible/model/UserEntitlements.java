@@ -1,9 +1,7 @@
 package edu.gatech.cs2340.centsible.model;
 
 public enum UserEntitlements {
-    // --Commented out by Inspection (11/8/18, 8:26 PM):GUEST(false, false, false, false),
-    USER();
-    // --Commented out by Inspection (11/8/18, 8:26 PM):ADMIN(true, true, true, true);
+    GUEST(), USER(), ADMIN();
 
     UserEntitlements() {
         boolean readData = true;
