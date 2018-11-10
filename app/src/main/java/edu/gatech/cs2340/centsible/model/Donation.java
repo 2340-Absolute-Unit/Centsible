@@ -4,14 +4,16 @@ import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
 
+import androidx.annotation.NonNull;
+
 public class Donation {
-    private String location;
-    private String name;
-    private String shortDescription;
-    private String longDescription;
+    private @NonNull String location;
+    private @NonNull String name;
+    private @NonNull String shortDescription;
+    private @NonNull String longDescription;
     private double value;
-    private String category;
-    private String enteredBy;
+    private @NonNull String category;
+    private @NonNull String enteredBy;
     private @ServerTimestamp Date lastUpdated;
 
 
@@ -19,9 +21,9 @@ public class Donation {
 
     }
 
-    public Donation(String location, String name, String shortDescription,
-                    String longDescription, double value, String category, String enteredBy,
-                    Date lastUpdated) {
+    public Donation(@NonNull String location, @NonNull String name, @NonNull String shortDescription,
+                    @NonNull String longDescription, double value, @NonNull String category,
+                    @NonNull String enteredBy, Date lastUpdated) {
         this.location = location;
         this.name = name;
         this.shortDescription = shortDescription;
@@ -32,19 +34,19 @@ public class Donation {
         this.lastUpdated = lastUpdated;
     }
 
-    public String getLocation() {
+    public @NonNull String getLocation() {
         return location;
     }
 
-    public String getName() {
+    public @NonNull String getName() {
         return name;
     }
 
-    public String getShortDescription() {
+    public @NonNull String getShortDescription() {
         return shortDescription;
     }
 
-    public String getLongDescription() {
+    public @NonNull String getLongDescription() {
         return longDescription;
     }
 
@@ -52,12 +54,12 @@ public class Donation {
         return value;
     }
 
-    public String getCategory() {
+    public @NonNull String getCategory() {
         return category;
     }
 
 
-    public String getEnteredBy() {
+    public @NonNull String getEnteredBy() {
         return enteredBy;
     }
 

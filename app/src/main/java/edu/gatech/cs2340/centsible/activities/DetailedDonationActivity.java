@@ -93,17 +93,18 @@ public class DetailedDonationActivity extends AppCompatActivity implements Event
             Log.d("CENTSIBLE", e.toString());
             return;
         }
-        onRestaurantLoaded(documentSnapshot.toObject(Donation.class));
+        onDonationLoaded(documentSnapshot.toObject(Donation.class));
     }
 
-    private void onRestaurantLoaded(Donation d) {
+    private void onDonationLoaded(Donation d) {
         nameView.setText(d.getName());
         categoryView.setText(d.getCategory());
         shortDescriptionView.setText(d.getShortDescription());
         longDescriptionView.setText(d.getLongDescription());
         valueView.setText(Double.toString(d.getValue()));
 
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        //DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        DateFormat df = DateFormat.getDateTimeInstance();
         dateView.setText(df.format(d.getLastUpdated()));
         locationView.setText(LocationManager.getInstance().getLocation(d.getLocation()).toString());
 
