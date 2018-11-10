@@ -50,7 +50,7 @@ public class Filters {
         this.location = location;
     }
 
-    public String getSearchDescription() {
+    /*public String getSearchDescription() {
         StringBuilder searchDescription = new StringBuilder();
 
         if (category == null && name == null && location == null) {
@@ -81,6 +81,7 @@ public class Filters {
         }
 
         return searchDescription.toString();
-    }
+    }*/
+
 
 }

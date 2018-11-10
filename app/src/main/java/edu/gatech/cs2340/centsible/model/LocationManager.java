@@ -21,6 +21,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 
 
+@SuppressWarnings("ALL")
 public class LocationManager {
 
     // singleton
@@ -71,7 +72,7 @@ public class LocationManager {
                 }
             });
 
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
 
@@ -166,7 +167,6 @@ public class LocationManager {
             //fileContent.setText(tempStr);
         } catch (IOException l) {
             l.printStackTrace();
-        } finally {
         }
     }
 }

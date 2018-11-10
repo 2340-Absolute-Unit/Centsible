@@ -20,8 +20,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import edu.gatech.cs2340.centsible.R;
 import edu.gatech.cs2340.centsible.model.Location;
 
+@SuppressWarnings("ALL")
 public class DetailedLocation extends AppCompatActivity implements Serializable, OnMapReadyCallback {
     private Location useLoc;
+    @SuppressWarnings("unused")
     private GoogleMap mMap;
 
     @NonNull

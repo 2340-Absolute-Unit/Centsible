@@ -21,7 +21,6 @@ import com.google.firebase.storage.StorageReference;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -31,6 +30,7 @@ import com.opencsv.CSVReader;
 import edu.gatech.cs2340.centsible.R;
 import edu.gatech.cs2340.centsible.model.Location;
 
+@SuppressWarnings("ALL")
 public class DataPullActivity extends AppCompatActivity implements Serializable {
 
     private TextView textName;
@@ -211,7 +211,6 @@ public class DataPullActivity extends AppCompatActivity implements Serializable 
             //fileContent.setText(tempStr);
         } catch (IOException l) {
             l.printStackTrace();
-        } finally {
         }
     }
 }

@@ -23,14 +23,16 @@ import androidx.annotation.NonNull;
 
 // POJO
 
+@SuppressWarnings({"ALL", "unused"})
 public class User {
     private static final String TAG = "NEWCENTSIBLE";
 
     private final String displayName;
     private final String uid;
+    @SuppressWarnings("unused")
     private final String email;
     private final boolean emailVerified;
-    private boolean isLocked;
+    // --Commented out by Inspection (11/10/18, 1:41 AM):private boolean isLocked;
     private ArrayList<UserEntitlements> entitlements = new ArrayList<>();
 
     public User(FirebaseUser user) {
@@ -49,9 +51,11 @@ public class User {
         return uid;
     }
 
-    public String getEmail() {
-        return email;
-    }
+// --Commented out by Inspection START (11/10/18, 1:41 AM):
+//    public String getEmail() {
+//        return email;
+//    }
+// --Commented out by Inspection STOP (11/10/18, 1:41 AM)
 
     public List<UserEntitlements> getEntitlements() {
         return entitlements;
@@ -61,9 +65,11 @@ public class User {
         this.entitlements = entitlements;
     }
 
-    public boolean isEmailVerified() {
-        return emailVerified;
-    }
+// --Commented out by Inspection START (11/10/18, 1:41 AM):
+//    public boolean isEmailVerified() {
+//        return emailVerified;
+//    }
+// --Commented out by Inspection STOP (11/10/18, 1:41 AM)
 
 
     private void retrieveEntitlementsFromFirestore() {

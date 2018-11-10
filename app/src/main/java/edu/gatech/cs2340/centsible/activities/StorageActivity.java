@@ -32,6 +32,7 @@ import com.firebase.ui.auth.IdpResponse;
 
 import edu.gatech.cs2340.centsible.R;
 
+@SuppressWarnings("ALL")
 public class StorageActivity extends AppCompatActivity {
     private ImageView imageView;
 

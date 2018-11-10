@@ -22,6 +22,7 @@ import edu.gatech.cs2340.centsible.model.LocationManager;
 import java.util.Arrays;
 import java.util.Objects;
 
+@SuppressWarnings("ALL")
 public class LandingPageActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 123;

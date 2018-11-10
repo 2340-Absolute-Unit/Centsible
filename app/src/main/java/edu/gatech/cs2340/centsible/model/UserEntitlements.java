@@ -1,5 +1,6 @@
 package edu.gatech.cs2340.centsible.model;
 
+@SuppressWarnings("ALL")
 public enum UserEntitlements {
     GUEST(), USER(), ADMIN();
 

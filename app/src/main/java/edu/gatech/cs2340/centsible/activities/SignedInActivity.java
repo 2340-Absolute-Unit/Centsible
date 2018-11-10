@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+@SuppressWarnings("ALL")
 public class SignedInActivity extends AppCompatActivity {
 
     private View rootView;
@@ -93,7 +94,7 @@ public class SignedInActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    QuerySnapshot s = task.getResult();
+                    //QuerySnapshot s = task.getResult();
                     if (!(Objects.requireNonNull(task.getResult()).isEmpty())) {
                         if (task.getResult().size() > 1) {
                             Log.d(TAG, "There are multiple documents matching the uid" + uid);

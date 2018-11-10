@@ -26,7 +26,6 @@ import javax.annotation.Nullable;
 
 public class DetailedDonationActivity extends AppCompatActivity implements EventListener<DocumentSnapshot> {
 
-    private static String donationId;
     public static final String DONATION_ID = "DONATION_ID";
 
     @BindView(R.id.donation_name)
@@ -59,7 +58,7 @@ public class DetailedDonationActivity extends AppCompatActivity implements Event
         setContentView(R.layout.activity_detailed_donation);
         ButterKnife.bind(this);
 
-        donationId = getIntent().getExtras().getString(DONATION_ID);
+        String donationId = Objects.requireNonNull(getIntent().getExtras()).getString(DONATION_ID);
         if (donationId == null) {
             throw new IllegalArgumentException("Must pass " + DONATION_ID);
         }
@@ -92,7 +91,7 @@ public class DetailedDonationActivity extends AppCompatActivity implements Event
             Log.d("CENTSIBLE", e.toString());
             return;
         }
-        onDonationLoaded(Objects.requireNonNull(documentSnapshot).toObject(Donation.class));
+        onDonationLoaded(Objects.requireNonNull(Objects.requireNonNull(documentSnapshot).toObject(Donation.class)));
     }
 
     @SuppressLint("SetTextI18n")
