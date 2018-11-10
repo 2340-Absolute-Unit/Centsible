@@ -83,7 +83,7 @@ public class SignedInActivity extends AppCompatActivity {
                 .putExtra(ExtraConstants.IDP_RESPONSE, response);
     }
 
-    public void setEntitlementsText() {
+    private void setEntitlementsText() {
         final String TAG  = "Centsible";
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         final String uid = UserFacade.getInstance().getUser().getUid();

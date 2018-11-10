@@ -30,7 +30,7 @@ public class LocationManager {
     // singleton
     private static final LocationManager INSTANCE = new LocationManager();
 
-    public LocationManager() {
+    private LocationManager() {
         retrieveLocationsFromFirebase();
     }
 
@@ -43,14 +43,13 @@ public class LocationManager {
     }
 
     public List<Location> getList() {
-        List<Location> list = new ArrayList<Location>(locations.values());
-        return list;
+        return new ArrayList<Location>(locations.values());
     }
 
-    HashMap<String, Location> locations;
+    private HashMap<String, Location> locations;
 
 
-    public void retrieveLocationsFromFirebase() {
+    private void retrieveLocationsFromFirebase() {
         locations = new HashMap<>();
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageReference = storage.getReferenceFromUrl("gs://centsible-d48e9.appspot.com").child("locations/")

@@ -15,8 +15,7 @@ public class Filters {
     public Filters() {}
 
     public static Filters getDefault() {
-        Filters filters = new Filters();
-        return filters;
+        return new Filters();
     }
 
     public boolean hasCategory() {

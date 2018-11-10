@@ -26,14 +26,14 @@ import edu.gatech.cs2340.centsible.activities.SignedInActivity;
 // POJO
 
 public class User {
-    public static final String TAG = "NEWCENTSIBLE";
+    private static final String TAG = "NEWCENTSIBLE";
 
-    private String displayName;
-    private String uid;
-    private String email;
-    private boolean emailVerified;
+    private final String displayName;
+    private final String uid;
+    private final String email;
+    private final boolean emailVerified;
     private boolean isLocked;
-    public ArrayList<UserEntitlements> entitlements = new ArrayList<>();
+    private ArrayList<UserEntitlements> entitlements = new ArrayList<>();
 
     public User(FirebaseUser user) {
         displayName = user.getDisplayName();

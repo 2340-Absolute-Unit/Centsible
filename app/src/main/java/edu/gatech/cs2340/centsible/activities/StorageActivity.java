@@ -51,16 +51,14 @@ import edu.gatech.cs2340.centsible.R;
 import edu.gatech.cs2340.centsible.adapter.DonationAdapter;
 
 public class StorageActivity extends AppCompatActivity {
-    // [START storage_field_declaration]
-    private Button btnChoose, btnUpload, goToDownload;
     private ImageView imageView;
 
     private Uri filePath;
 
     private final int PICK_IMAGE_REQUEST = 71;
 
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageReference = storage.getReference();
+    private final FirebaseStorage storage = FirebaseStorage.getInstance();
+    private final StorageReference storageReference = storage.getReference();
     // [END storage_field_declaration]
     @NonNull
     public static Intent createIntent(@NonNull Context context,
@@ -111,9 +109,9 @@ public class StorageActivity extends AppCompatActivity {
             }
         });
 
-        goToDownload = (Button) findViewById(R.id.goToDownload);
-        btnChoose = (Button) findViewById(R.id.btnChoose);
-        btnUpload = (Button) findViewById(R.id.btnUpload);
+        Button goToDownload = (Button) findViewById(R.id.goToDownload);
+        Button btnChoose = (Button) findViewById(R.id.btnChoose);
+        Button btnUpload = (Button) findViewById(R.id.btnUpload);
         //imageView = (ImageView) findViewById(R.id.imgView);
 
         btnChoose.setOnClickListener(new View.OnClickListener() {

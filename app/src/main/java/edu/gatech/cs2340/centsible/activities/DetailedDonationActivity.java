@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 
 public class DetailedDonationActivity extends AppCompatActivity implements EventListener<DocumentSnapshot> {
 
-    public static String donationId;
+    private static String donationId;
     public static final String DONATION_ID = "DONATION_ID";
 
     @BindView(R.id.donation_name)
@@ -50,7 +50,6 @@ public class DetailedDonationActivity extends AppCompatActivity implements Event
     @BindView(R.id.donation_location)
     TextView locationView;
 
-    private FirebaseFirestore mFirestore;
     private DocumentReference mDonationRef;
     private ListenerRegistration mDonationsListener;
 
@@ -65,7 +64,7 @@ public class DetailedDonationActivity extends AppCompatActivity implements Event
             throw new IllegalArgumentException("Must pass " + DONATION_ID);
         }
 
-        mFirestore = FirebaseFirestore.getInstance();
+        FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
 
         mDonationRef = mFirestore.collection("donations").document(donationId);
     }

@@ -53,14 +53,13 @@ import edu.gatech.cs2340.centsible.model.LocationManager;
 
 public class DataPullActivity extends AppCompatActivity implements Serializable {
 
-    private Button btnDownload, btnParse;
-    private TextView textName, fileContent;
+    private TextView textName;
     private File downloadedFile;
     private LinearLayout linLayout;
     private boolean parsed = false;
 
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageReference = storage.getReferenceFromUrl("gs://centsible-d48e9.appspot.com").child("locations/")
+    private final FirebaseStorage storage = FirebaseStorage.getInstance();
+    private final StorageReference storageReference = storage.getReferenceFromUrl("gs://centsible-d48e9.appspot.com").child("locations/")
             .child("currentLocations");
 
     @NonNull
@@ -73,10 +72,10 @@ public class DataPullActivity extends AppCompatActivity implements Serializable 
         setContentView(R.layout.activity_data_pull);
 
         linLayout = (LinearLayout) findViewById(R.id.dataLayout);
-        btnDownload = (Button) findViewById(R.id.btnDownload);
-        btnParse = (Button) findViewById(R.id.btnParse);
+        Button btnDownload = (Button) findViewById(R.id.btnDownload);
+        Button btnParse = (Button) findViewById(R.id.btnParse);
         textName = (TextView) findViewById(R.id.textView);
-        fileContent = (TextView) findViewById(R.id.fileContent);
+        TextView fileContent = (TextView) findViewById(R.id.fileContent);
 
         btnDownload.setOnClickListener(new View.OnClickListener() {
             @Override

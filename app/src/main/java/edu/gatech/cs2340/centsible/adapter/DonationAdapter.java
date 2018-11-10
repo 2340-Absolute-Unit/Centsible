@@ -42,7 +42,7 @@ public class DonationAdapter extends FirestoreAdapter<DonationAdapter.ViewHolder
 
     }
 
-    private OnDonationSelectedListener mListener;
+    private final OnDonationSelectedListener mListener;
 
     public DonationAdapter(Query query, OnDonationSelectedListener listener) {
         super(query);
@@ -72,13 +72,13 @@ public class DonationAdapter extends FirestoreAdapter<DonationAdapter.ViewHolder
 //        @BindView(R.id.donation_location)
 //        TextView locationView;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final DocumentSnapshot snapshot,
-                         final OnDonationSelectedListener listener) {
+        void bind(final DocumentSnapshot snapshot,
+                  final OnDonationSelectedListener listener) {
 
             Donation donation = snapshot.toObject(Donation.class);
             Resources resources = itemView.getResources();

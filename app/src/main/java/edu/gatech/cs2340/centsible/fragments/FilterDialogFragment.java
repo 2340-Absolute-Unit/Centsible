@@ -111,7 +111,7 @@ public class FilterDialogFragment extends DialogFragment {
     }
 
 
-    public Filters getFilters() {
+    private Filters getFilters() {
         Filters filter = new Filters();
         filter.setCategory(getCategory());
         filter.setName(getName());
@@ -127,7 +127,7 @@ public class FilterDialogFragment extends DialogFragment {
         }
     }
 
-    public String getCategory() {
+    private String getCategory() {
         if (mCategoryTextField.getText().toString() == "") {
             return null;
         } else {
@@ -135,7 +135,7 @@ public class FilterDialogFragment extends DialogFragment {
         }
     }
 
-    public String getName() {
+    private String getName() {
         if (mNameTextField.getText().toString() == "") {
             return null;
         } else {
@@ -143,7 +143,7 @@ public class FilterDialogFragment extends DialogFragment {
         }
     }
 
-    public String getLocation() {
+    private String getLocation() {
         Location loc = (Location) mLocationSpinner.getSelectedItem();
         if (loc.getName().equals("Name")) {
             return null;

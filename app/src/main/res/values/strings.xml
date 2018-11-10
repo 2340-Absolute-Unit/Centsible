@@ -28,6 +28,27 @@
     <string name="go_to_download">Go to Download</string>
     <string name="filename">filename</string>
     <string name="title_activity_maps">Map</string>
-    <string name="title_activity_add_donation">AddDonationActivity</string>
+    tegory<string name="title_activity_add_donation">AddDonationActivity</string>
     <string name="title_activity_landing_page">Centsible</string>
+
+    <!-- Strings to fix hardcoded texts errors -->
+    <string name="filters">Filters</string>
+    <string name="filter">Filter</string>
+    <string name="name">Name</string>
+    <string name="entitlements">Entitlements</string>
+    <string name="category">Category</string>
+    <string name="cancel">Cancel</string>
+    <string name="apply">Apply</string>
+    <string name="no_results">No results were found</string>
+    <string name="description">Description</string>
+    <string name="short_description">Short Description</string>
+    <string name="long_description">Long Description</string>
+    <string name="value">Value</string>
+    <string name="date">Date</string>
+    <string name="location">Location</string>
+    <string name="add_donation">Add Donation</string>
+    <string name="list_donations">List Donations</string>
+    <string name="submit">Submit</string>
+
+    
 </resources>
