@@ -43,7 +43,15 @@ public class StorageActivity extends AppCompatActivity {
     private final FirebaseStorage storage = FirebaseStorage.getInstance();
     private final StorageReference storageReference = storage.getReference();
     // [END storage_field_declaration]
+
     @NonNull
+    /**
+     * create intent of context to get storage activity
+     *
+     * @param context of nonnull context of get storage
+     * @param response creates intent depending on response
+     * @return intent of storage of item
+     */
     public static Intent createIntent(@NonNull Context context,
                                       @Nullable IdpResponse response) {
         return new Intent().setClass(context, StorageActivity.class)

@@ -29,6 +29,12 @@ public class LandingPageActivity extends AppCompatActivity {
     private View rootView;
 
     @NonNull
+    /**
+     * create intent of context of landing page activity
+     *
+     * @param context of nonnull context of landing page
+     * @return intent of landing page
+     */
     public static Intent createIntent(@NonNull Context context) {
         return new Intent(context, LandingPageActivity.class);
     }
@@ -55,6 +61,13 @@ public class LandingPageActivity extends AppCompatActivity {
                 RC_SIGN_IN);
     }
 
+    /**
+     * create intent of landing page
+     *
+     * @param requestCode code to see if want to sign-in or not
+     * @param resultCode code to see if credentials are good to sign-in
+     * @param data to check to go to resultcode
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {

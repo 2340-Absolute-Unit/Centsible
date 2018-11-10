@@ -41,7 +41,12 @@ public class DonationActivity extends AppCompatActivity
     private DonationAdapter mAdapter;
     private static final String TAG = "CentsibleTAG";
 
-
+    /**
+     * create intent of context to see donation activity
+     *
+     * @param context of nonnull context of donation activity
+     * @return intent of donation activity
+     */
     public static Intent createIntent(Context context) {
         return new Intent(context, DonationActivity.class);
     }
@@ -94,6 +99,11 @@ public class DonationActivity extends AppCompatActivity
 
 
     @Override
+    /**
+     * add to particular donation
+     *
+     * @param donation information on particular donation to get more data from
+     */
     public void onDonationSelected(DocumentSnapshot donation) {
         Intent intent = new Intent(this, DetailedDonationActivity.class);
         intent.putExtra(DetailedDonationActivity.DONATION_ID, donation.getId());
@@ -139,12 +149,18 @@ public class DonationActivity extends AppCompatActivity
     }
 
     @OnClick(R.id.filter_bar)
+    /**
+     * filter donations
+     */
     public void onFilterClicked() {
         // Show the dialog containing filter options
         mFilterDialog.show(getSupportFragmentManager(), FilterDialogFragment.TAG);
     }
 
     @OnClick(R.id.button_clear_filter)
+    /**
+     * clear filter on donations
+     */
     public void onClearFilterClicked() {
         mFilterDialog.resetFilters();
 

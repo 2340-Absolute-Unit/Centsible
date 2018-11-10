@@ -35,6 +35,11 @@ public class User {
     // --Commented out by Inspection (11/10/18, 1:41 AM):private boolean isLocked;
     private ArrayList<UserEntitlements> entitlements = new ArrayList<>();
 
+    /**
+     * constructor of firebase user
+     *
+     * @param user user of firebase
+     */
     public User(FirebaseUser user) {
         displayName = user.getDisplayName();
         uid = user.getUid();
@@ -43,10 +48,16 @@ public class User {
         retrieveEntitlementsFromFirestore();
     }
 
+    /**
+     * getter for display name of iser
+     */
     public String getDisplayName() {
         return displayName;
     }
 
+    /**
+     * getter for id of user
+     */
     public String getUid() {
         return uid;
     }
@@ -57,10 +68,20 @@ public class User {
 //    }
 // --Commented out by Inspection STOP (11/10/18, 1:41 AM)
 
+    /**
+     * getter for entitlements of user
+     *
+     * @return list of user entitlements
+     */
     public List<UserEntitlements> getEntitlements() {
         return entitlements;
     }
 
+    /**
+     * setter for user entitlements
+     *
+     * @param entitlements new user entitlements
+     */
     public void setEntitlements(ArrayList<UserEntitlements> entitlements) {
         this.entitlements = entitlements;
     }

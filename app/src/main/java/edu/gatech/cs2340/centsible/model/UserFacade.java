@@ -8,14 +8,27 @@ public class UserFacade {
     private static final UserFacade INSTANCE = new UserFacade();
     private User user = null;
 
+    /**
+     * get instance of user facade
+     *
+     * @return user facade of user
+     */
     public static UserFacade getInstance() {
         return INSTANCE;
     }
 
+    /**
+     * get user of user facade
+     */
     public User getUser() {
         return user;
     }
 
+    /**
+     * setter for user of firebase
+     *
+     * @param firebaseUser new user of firebase
+     */
     public void setUser(FirebaseUser firebaseUser) {
         user = new User(firebaseUser);
     }

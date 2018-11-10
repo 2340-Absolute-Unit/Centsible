@@ -30,6 +30,12 @@ public class AddDonationActivity extends AppCompatActivity {
 
     private FirebaseFirestore mFirestore;
 
+    /**
+     * create intent of context to add a donation
+     *
+     * @param context of nonnull context of add donation
+     * @return intent of adding a donation
+     */
     public static Intent createIntent(@NonNull Context context) {
         return new Intent(context, AddDonationActivity.class);
     }
@@ -47,6 +53,7 @@ public class AddDonationActivity extends AppCompatActivity {
 
         Button submitButton = findViewById(R.id.submit_button);
         submitButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 TextView nameTextView = findViewById(R.id.name_textfield);

@@ -31,14 +31,30 @@ public class LocationManager {
         retrieveLocationsFromFirebase();
     }
 
+    /**
+     * get instance of location manager
+     *
+     * @return instance of location manager
+     */
     public static LocationManager getInstance() {
         return INSTANCE;
     }
 
+    /**
+     * get location of location manager
+     *
+     * @param key key of the particular location to get
+     * @return the location
+     */
     public Location getLocation(String key) {
         return locations.get(key);
     }
 
+    /**
+     * get list of location managers
+     *
+     * @return list of locations
+     */
     public List<Location> getList() {
         return new ArrayList<>(locations.values());
     }

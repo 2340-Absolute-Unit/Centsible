@@ -43,6 +43,12 @@ public class DataPullActivity extends AppCompatActivity implements Serializable 
             .child("currentLocations");
 
     @NonNull
+    /**
+     * create intent of context to pull data
+     *
+     * @param context of nonnull context of data pull
+     * @return intent of data information from donation
+     */
     public static Intent createIntent(@NonNull Context context) {
         return new Intent().setClass(context, DataPullActivity.class);
     }

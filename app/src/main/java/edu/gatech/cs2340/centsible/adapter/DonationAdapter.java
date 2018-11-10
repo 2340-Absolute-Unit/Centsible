@@ -47,6 +47,12 @@ public class DonationAdapter extends FirestoreAdapter<DonationAdapter.ViewHolder
 
     private final OnDonationSelectedListener mListener;
 
+    /**
+     * create intent of context to listn to donation in firestore
+     *
+     * @param query data info
+     * @param listener to get donation from firestore
+     */
     public DonationAdapter(Query query, OnDonationSelectedListener listener) {
         super(query);
         super.startListening();

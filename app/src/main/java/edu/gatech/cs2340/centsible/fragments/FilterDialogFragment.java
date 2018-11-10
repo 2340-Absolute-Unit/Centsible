@@ -98,6 +98,9 @@ public class FilterDialogFragment extends DialogFragment {
     }
 
     @OnClick(R.id.search_button)
+    /**
+     * search filters based on click
+     */
     public void onSearchClicked() {
         if (mFilterListener != null) {
             mFilterListener.onFilter(getFilters());
@@ -106,6 +109,9 @@ public class FilterDialogFragment extends DialogFragment {
         dismiss();
     }
 
+    /**
+     *cancel search filters based on click
+     */
     @OnClick(R.id.cancel_button)
     public void onCancelClicked() {
         dismiss();
@@ -120,6 +126,9 @@ public class FilterDialogFragment extends DialogFragment {
         return filter;
     }
 
+    /**
+     * reset filters
+     */
     public void resetFilters() {
         if (mRootView != null) {
             mLocationSpinner.setSelection(0);

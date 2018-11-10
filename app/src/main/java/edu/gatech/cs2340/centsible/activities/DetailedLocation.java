@@ -27,6 +27,12 @@ public class DetailedLocation extends AppCompatActivity implements Serializable,
     private GoogleMap mMap;
 
     @NonNull
+    /**
+     * create intent of context to get detailed location
+     *
+     * @param context of nonnull context of get detailed location of donation
+     * @return intent of detailed location
+     */
     public static Intent createIntent(@NonNull Context context) {
         //useLoc = inLoc;
         return new Intent().setClass(context, DetailedLocation.class);

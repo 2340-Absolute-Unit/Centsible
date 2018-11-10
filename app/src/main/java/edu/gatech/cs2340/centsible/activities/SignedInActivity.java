@@ -78,6 +78,13 @@ public class SignedInActivity extends AppCompatActivity {
     }
 
     @NonNull
+    /**
+     * create intent of signed in page
+     *
+     * @param context nonnull context to fill page
+     * @param resultCode code to see if credentials are good to sign-in
+     * @param data to check to go to resultcode
+     */
     public static Intent createIntent(@NonNull Context context,
                                       @Nullable IdpResponse response) {
         return new Intent().setClass(context, SignedInActivity.class)

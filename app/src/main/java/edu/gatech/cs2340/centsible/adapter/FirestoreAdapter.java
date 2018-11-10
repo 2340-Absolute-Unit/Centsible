@@ -53,12 +53,18 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
         mQuery = query;
     }
 
+    /**
+     * start listening to firestore
+     */
     public void startListening() {
         if (mQuery != null && mRegistration == null) {
             mRegistration = mQuery.addSnapshotListener(this);
         }
     }
 
+    /**
+     * stop listening to firestore
+     */
     public void stopListening() {
         if (mRegistration != null) {
             mRegistration.remove();
@@ -69,6 +75,10 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
         notifyDataSetChanged();
     }
 
+    /**
+     * setQuery in firestore
+     * @param query new query to set to firestore
+     */
     public void setQuery(Query query) {
         // Stop listening
         stopListening();
