@@ -90,10 +90,10 @@ public class DetailedDonationActivity extends AppCompatActivity implements Event
             Log.d("CENTSIBLE", e.toString());
             return;
         }
-        onRestaurantLoaded(Objects.requireNonNull(documentSnapshot).toObject(Donation.class));
+        onDonationLoaded(Objects.requireNonNull(documentSnapshot).toObject(Donation.class));
     }
 
-    private void onRestaurantLoaded(Donation d) {
+    private void onDonationLoaded(Donation d) {
         nameView.setText(d.getName());
         categoryView.setText(d.getCategory());
         shortDescriptionView.setText(d.getShortDescription());
