@@ -3,11 +3,9 @@ package edu.gatech.cs2340.centsible.activities;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,36 +17,20 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnPausedListener;
 import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageException;
-import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.firebase.ui.auth.util.ExtraConstants;
 import com.firebase.ui.auth.IdpResponse;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.UUID;
-
 import edu.gatech.cs2340.centsible.R;
-import edu.gatech.cs2340.centsible.adapter.DonationAdapter;
 
 public class StorageActivity extends AppCompatActivity {
     private ImageView imageView;
@@ -72,7 +54,7 @@ public class StorageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_storage1);
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        Button signout = (Button) findViewById(R.id.sign_out_button);
+        Button signout = findViewById(R.id.sign_out_button);
         signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,7 +75,7 @@ public class StorageActivity extends AppCompatActivity {
             }
         });
 
-        Button addDonation = (Button)  findViewById(R.id.add_donation_button);
+        Button addDonation = findViewById(R.id.add_donation_button);
         addDonation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +83,7 @@ public class StorageActivity extends AppCompatActivity {
             }
         });
 
-        Button listDonation = (Button) findViewById(R.id.list_donation_button);
+        Button listDonation = findViewById(R.id.list_donation_button);
         listDonation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,9 +91,9 @@ public class StorageActivity extends AppCompatActivity {
             }
         });
 
-        Button goToDownload = (Button) findViewById(R.id.goToDownload);
-        Button btnChoose = (Button) findViewById(R.id.btnChoose);
-        Button btnUpload = (Button) findViewById(R.id.btnUpload);
+        Button goToDownload = findViewById(R.id.goToDownload);
+        Button btnChoose = findViewById(R.id.btnChoose);
+        Button btnUpload = findViewById(R.id.btnUpload);
         //imageView = (ImageView) findViewById(R.id.imgView);
 
         btnChoose.setOnClickListener(new View.OnClickListener() {

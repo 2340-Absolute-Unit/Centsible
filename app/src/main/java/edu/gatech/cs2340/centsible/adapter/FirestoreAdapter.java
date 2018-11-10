@@ -29,8 +29,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-import javax.annotation.Nullable;
-
 /**
  * RecyclerView adapter for displaying the results of a Firestore {@link Query}.
  *

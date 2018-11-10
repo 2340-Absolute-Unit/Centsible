@@ -1,10 +1,6 @@
 package edu.gatech.cs2340.centsible;
 
-import android.content.Context;
 import android.text.TextUtils;
-
-import edu.gatech.cs2340.centsible.model.Donation;
-import com.google.firebase.firestore.Query;
 
 public class Filters {
 

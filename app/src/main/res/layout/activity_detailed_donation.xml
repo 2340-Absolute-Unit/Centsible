@@ -56,7 +56,7 @@
         android:layout_height="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="15dp"
-        android:text="Value"
+        android:text="@string/value"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/donation_long_description2" />

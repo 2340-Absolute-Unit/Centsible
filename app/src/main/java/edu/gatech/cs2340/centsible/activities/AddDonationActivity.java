@@ -39,13 +39,13 @@ public class AddDonationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_donation);
 
-        final Spinner spinner = (Spinner) findViewById(R.id.donation_spinner);
+        final Spinner spinner = findViewById(R.id.donation_spinner);
         ArrayAdapter<Location> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, LocationManager.getInstance().getList());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        Button submitButton = (Button) findViewById(R.id.submit_button);
+        Button submitButton = findViewById(R.id.submit_button);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,7 +92,7 @@ public class AddDonationActivity extends AppCompatActivity {
                 finish();
             }
         });
-        Button cancelButton = (Button) findViewById(R.id.cancel_button);
+        Button cancelButton = findViewById(R.id.cancel_button);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

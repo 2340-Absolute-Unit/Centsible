@@ -6,6 +6,7 @@ import java.util.Date;
 
 import androidx.annotation.NonNull;
 
+@SuppressWarnings("NullableProblems")
 public class Donation {
     private @NonNull String location;
     private @NonNull String name;

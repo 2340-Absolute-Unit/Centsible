@@ -1,11 +1,7 @@
 package edu.gatech.cs2340.centsible.model;
 
-import android.content.Intent;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -16,13 +12,13 @@ import com.opencsv.CSVReader;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import androidx.annotation.NonNull;
 
 
 public class LocationManager {
@@ -43,7 +39,7 @@ public class LocationManager {
     }
 
     public List<Location> getList() {
-        return new ArrayList<Location>(locations.values());
+        return new ArrayList<>(locations.values());
     }
 
     private HashMap<String, Location> locations;
@@ -59,7 +55,7 @@ public class LocationManager {
     }
 
 
-    private File downloadFile(StorageReference storageReference) {
+    private void downloadFile(StorageReference storageReference) {
         try {
             final File localFile = File.createTempFile("text", "csv");
             storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
@@ -70,14 +66,12 @@ public class LocationManager {
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
-                public void onFailure(Exception e) {
+                public void onFailure(@NonNull Exception e) {
 
                 }
             });
 
-            return localFile;
         } catch (IOException e) {
-            return null;
         }
     }
 
@@ -87,7 +81,7 @@ public class LocationManager {
         BufferedReader br = null;
         String[] locations = new String[]{};
         StringBuilder outP = new StringBuilder();
-        ArrayList<Location> locArr = new ArrayList<Location>();
+        ArrayList<Location> locArr = new ArrayList<>();
         int counter = 0;
         LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -170,18 +164,9 @@ public class LocationManager {
             }
 
             //fileContent.setText(tempStr);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException l) {
             l.printStackTrace();
         } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 }

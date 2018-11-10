@@ -7,11 +7,11 @@ import edu.gatech.cs2340.centsible.R;
 import edu.gatech.cs2340.centsible.model.Donation;
 import edu.gatech.cs2340.centsible.model.LocationManager;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -20,7 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.util.Objects;
 
 import javax.annotation.Nullable;
 
@@ -92,9 +92,10 @@ public class DetailedDonationActivity extends AppCompatActivity implements Event
             Log.d("CENTSIBLE", e.toString());
             return;
         }
-        onDonationLoaded(documentSnapshot.toObject(Donation.class));
+        onDonationLoaded(Objects.requireNonNull(documentSnapshot).toObject(Donation.class));
     }
 
+    @SuppressLint("SetTextI18n")
     private void onDonationLoaded(Donation d) {
         nameView.setText(d.getName());
         categoryView.setText(d.getCategory());

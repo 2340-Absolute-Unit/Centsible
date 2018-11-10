@@ -1,13 +1,11 @@
 package edu.gatech.cs2340.centsible.model;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -18,9 +16,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
-import edu.gatech.cs2340.centsible.activities.SignedInActivity;
 
 
 // POJO
@@ -77,7 +75,7 @@ public class User {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     QuerySnapshot s = task.getResult();
-                    if (!(task.getResult().isEmpty())) {
+                    if (!(Objects.requireNonNull(task.getResult()).isEmpty())) {
                         if (task.getResult().size() > 1) {
                             Log.d(TAG, "There are multiple documents matching the uid" + uid);
                             return; // error handling

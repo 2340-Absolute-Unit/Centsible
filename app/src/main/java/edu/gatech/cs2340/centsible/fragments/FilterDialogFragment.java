@@ -18,15 +18,16 @@ package edu.gatech.cs2340.centsible.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Filter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.Objects;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import butterknife.BindView;
@@ -62,7 +63,7 @@ public class FilterDialogFragment extends DialogFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater,
+    public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.dialog_filters, container, false);
@@ -74,7 +75,7 @@ public class FilterDialogFragment extends DialogFragment {
     @Override
     public void onStart() {
         super.onStart();
-        ArrayAdapter<Location> adapter = new ArrayAdapter<Location>(getActivity(), android.R.layout.simple_spinner_item, LocationManager.getInstance().getList());
+        ArrayAdapter<Location> adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), android.R.layout.simple_spinner_item, LocationManager.getInstance().getList());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mLocationSpinner.setAdapter(adapter);
     }
@@ -128,7 +129,7 @@ public class FilterDialogFragment extends DialogFragment {
     }
 
     private String getCategory() {
-        if (mCategoryTextField.getText().toString() == "") {
+        if (Objects.equals(mCategoryTextField.getText().toString(), "")) {
             return null;
         } else {
             return mCategoryTextField.getText().toString();
@@ -136,7 +137,7 @@ public class FilterDialogFragment extends DialogFragment {
     }
 
     private String getName() {
-        if (mNameTextField.getText().toString() == "") {
+        if (Objects.equals(mNameTextField.getText().toString(), "")) {
             return null;
         } else {
             return mNameTextField.getText().toString();

@@ -9,7 +9,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import edu.gatech.cs2340.centsible.R;
-import edu.gatech.cs2340.centsible.model.User;
 import edu.gatech.cs2340.centsible.model.UserEntitlements;
 import edu.gatech.cs2340.centsible.model.UserFacade;
 
@@ -36,6 +35,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class SignedInActivity extends AppCompatActivity {
 
@@ -47,7 +47,7 @@ public class SignedInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signed_in);
         rootView = findViewById(R.id.root);
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        Button signout = (Button) findViewById(R.id.sign_out_button);
+        Button signout = findViewById(R.id.sign_out_button);
         signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,7 +70,7 @@ public class SignedInActivity extends AppCompatActivity {
             }
         });
 
-        TextView nameField = (TextView) findViewById(R.id.nameText);
+        TextView nameField = findViewById(R.id.nameText);
         nameField.setText(UserFacade.getInstance().getUser().getDisplayName()); // set text to be displayName
         setEntitlementsText();
 
@@ -94,7 +94,7 @@ public class SignedInActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     QuerySnapshot s = task.getResult();
-                    if (!(task.getResult().isEmpty())) {
+                    if (!(Objects.requireNonNull(task.getResult()).isEmpty())) {
                         if (task.getResult().size() > 1) {
                             Log.d(TAG, "There are multiple documents matching the uid" + uid);
                             return; // error handling
@@ -126,12 +126,12 @@ public class SignedInActivity extends AppCompatActivity {
                                 );
                     }
                     // set UI
-                    String k = "";
+                    StringBuilder k = new StringBuilder();
                     for (UserEntitlements ue: UserFacade.getInstance().getUser().getEntitlements()) {
-                        k += ue.toString() + " ";
+                        k.append(ue.toString()).append(" ");
                     }
-                    TextView entitlementsField = (TextView) findViewById(R.id.entitlementsText);
-                    entitlementsField.setText(k);
+                    TextView entitlementsField = findViewById(R.id.entitlementsText);
+                    entitlementsField.setText(k.toString());
 
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
