@@ -28,8 +28,18 @@ public class User {
 
     private final String displayName;
     private final String uid;
+    private String email;
+    private boolean emailVerified;
     //private boolean isLocked;
     private ArrayList<UserEntitlements> entitlements = new ArrayList<>();
+
+    public User(FirebaseUser user) {
+        displayName = user.getDisplayName();
+        uid = user.getUid();
+        email = user.getEmail();
+        emailVerified = user.isEmailVerified();
+        retrieveEntitlementsFromFirestore();
+    }
 
     public String getDisplayName() {
         return displayName;
@@ -57,17 +67,9 @@ public class User {
         return emailVerified;
     }*/
 
-    public User(FirebaseUser user) {
-        displayName = user.getDisplayName();
-        uid = user.getUid();
-        String email = user.getEmail();
-        boolean emailVerified = user.isEmailVerified();
-        retrieveEntitlementsFromFirestore();
-    }
-
     private void retrieveEntitlementsFromFirestore() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        final CollectionReference usersRef = db.collection("users");
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        final CollectionReference usersRef = database.collection("users");
         Query query = usersRef.whereEqualTo("uid", uid);
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -97,7 +99,7 @@ public class User {
                                         new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
-                                                Log.d(TAG, "Failure to add an entitlement to Firestore");
+                                                Log.d(TAG, "Failed to add an entitlement to Firestore");
                                             }
                                         }
                                 );
@@ -109,8 +111,6 @@ public class User {
         });
 
     }
-
-
 
 
 }
