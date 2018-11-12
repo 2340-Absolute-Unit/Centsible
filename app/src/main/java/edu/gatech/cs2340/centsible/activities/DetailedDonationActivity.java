@@ -24,7 +24,12 @@ import java.util.Objects;
 
 import javax.annotation.Nullable;
 
-public class DetailedDonationActivity extends AppCompatActivity implements EventListener<DocumentSnapshot> {
+/**
+ * gives details of donation
+ */
+@SuppressWarnings("ALL")
+public class DetailedDonationActivity extends AppCompatActivity implements
+        EventListener<DocumentSnapshot> {
 
     public static final String DONATION_ID = "DONATION_ID";
 
@@ -50,6 +55,8 @@ public class DetailedDonationActivity extends AppCompatActivity implements Event
     TextView locationView;
 
     private DocumentReference mDonationRef;
+
+    @Nullable
     private ListenerRegistration mDonationsListener;
 
     @Override
@@ -86,12 +93,14 @@ public class DetailedDonationActivity extends AppCompatActivity implements Event
     }
 
     @Override
-    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+    public void onEvent(@Nullable DocumentSnapshot documentSnapshot,
+                        @Nullable FirebaseFirestoreException e) {
         if (e != null) {
             Log.d("CENTSIBLE", e.toString());
             return;
         }
-        onDonationLoaded(Objects.requireNonNull(Objects.requireNonNull(documentSnapshot).toObject(Donation.class)));
+        onDonationLoaded(Objects.requireNonNull(Objects.requireNonNull(documentSnapshot).
+                toObject(Donation.class)));
     }
 
     @SuppressLint("SetTextI18n")

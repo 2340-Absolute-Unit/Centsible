@@ -26,6 +26,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
+/**
+ * donation activity class
+ */
+@SuppressWarnings("ALL")
 public class DonationActivity extends AppCompatActivity
         implements DonationAdapter.OnDonationSelectedListener, FilterDialogFragment.FilterListener {
     @BindView(R.id.donation_recycler)
@@ -99,11 +103,6 @@ public class DonationActivity extends AppCompatActivity
 
 
     @Override
-    /**
-     * add to particular donation
-     *
-     * @param donation information on particular donation to get more data from
-     */
     public void onDonationSelected(DocumentSnapshot donation) {
         Intent intent = new Intent(this, DetailedDonationActivity.class);
         intent.putExtra(DetailedDonationActivity.DONATION_ID, donation.getId());
@@ -148,19 +147,19 @@ public class DonationActivity extends AppCompatActivity
         mAdapter.setQuery(query);
     }
 
-    @OnClick(R.id.filter_bar)
     /**
      * filter donations
      */
+    @OnClick(R.id.filter_bar)
     public void onFilterClicked() {
         // Show the dialog containing filter options
         mFilterDialog.show(getSupportFragmentManager(), FilterDialogFragment.TAG);
     }
 
-    @OnClick(R.id.button_clear_filter)
     /**
-     * clear filter on donations
+     * clear filters on click
      */
+    @OnClick(R.id.button_clear_filter)
     public void onClearFilterClicked() {
         mFilterDialog.resetFilters();
 

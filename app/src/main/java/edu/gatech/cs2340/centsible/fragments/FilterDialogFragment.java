@@ -38,12 +38,18 @@ import edu.gatech.cs2340.centsible.model.LocationManager;
  * limitations under the License.
  */
 
+@SuppressWarnings("ALL")
 public class FilterDialogFragment extends DialogFragment {
 
     public static final String TAG = "Filter";
 
     public interface FilterListener {
 
+        /**
+         * filter search
+         *
+         * @param filters filter to filter search
+         */
         void onFilter(Filters filters);
 
     }
@@ -75,7 +81,8 @@ public class FilterDialogFragment extends DialogFragment {
     @Override
     public void onStart() {
         super.onStart();
-        ArrayAdapter<Location> adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), android.R.layout.simple_spinner_item, LocationManager.getInstance().getList());
+        ArrayAdapter<Location> adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
+                android.R.layout.simple_spinner_item, LocationManager.getInstance().getList());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mLocationSpinner.setAdapter(adapter);
     }
@@ -97,10 +104,10 @@ public class FilterDialogFragment extends DialogFragment {
         );
     }
 
-    @OnClick(R.id.search_button)
     /**
      * search filters based on click
      */
+    @OnClick(R.id.search_button)
     public void onSearchClicked() {
         if (mFilterListener != null) {
             mFilterListener.onFilter(getFilters());
@@ -155,7 +162,7 @@ public class FilterDialogFragment extends DialogFragment {
 
     private String getLocation() {
         Location loc = (Location) mLocationSpinner.getSelectedItem();
-        if (loc.getName().equals("Name")) {
+        if ("Name".equals(loc.getName())) {
             return null;
         } else {
             return loc.getKey();

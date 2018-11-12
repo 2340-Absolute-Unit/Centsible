@@ -2,16 +2,18 @@ package edu.gatech.cs2340.centsible;
 
 import android.text.TextUtils;
 
+/**
+ * filter class for filtering search
+ */
 public class Filters {
 
-    private String category = null;
-    private String name = null;
-    private String location = null;
+    private String category;
+    private String name;
+    private String location;
 
-    /**
-     * empty constructor for filters
-     */
-    public Filters() {}
+
+    /*empty constructor for filters
+    public Filters() {}*/
 
     /**
      * get default filter

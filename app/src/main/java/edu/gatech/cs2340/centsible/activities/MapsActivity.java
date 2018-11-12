@@ -14,9 +14,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.Objects;
 
-@SuppressWarnings("unused")
+/**
+ * map activity
+ */
+@SuppressWarnings("ALL")
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    @SuppressWarnings("FieldCanBeLocal")
     private GoogleMap mMap;
 
     @Override

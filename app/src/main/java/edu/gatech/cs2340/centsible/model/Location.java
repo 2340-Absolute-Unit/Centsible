@@ -2,6 +2,9 @@ package edu.gatech.cs2340.centsible.model;
 
 import java.io.Serializable;
 
+/**
+ * location information model
+ */
 public class Location implements Serializable {
     private String key = "N/A";
     private String name = "N/A";
@@ -15,12 +18,10 @@ public class Location implements Serializable {
     private String phone = "N/A";
     private String website = "N/A";
 
-    /**
-     * empty constructor for location
-     */
+    /*empty constructor for location
     public Location() {
 
-    }
+    }*/
 
     /**
      * setter for key of location
@@ -33,6 +34,8 @@ public class Location implements Serializable {
 
     /**
      * getter for key of location
+     *
+     * @return key of location
      */
     public String getKey() {
         return this.key;
@@ -49,6 +52,8 @@ public class Location implements Serializable {
 
     /**
      * getter for name of location
+     *
+     * @return name of location
      */
     public String getName() {
         return this.name;
@@ -65,6 +70,8 @@ public class Location implements Serializable {
 
     /**
      * getter for latitude of location
+     *
+     * @return latitude of location
      */
     public String getLatitude() {
         return this.latitude;
@@ -81,6 +88,8 @@ public class Location implements Serializable {
 
     /**
      * getter for longitude of location
+     *
+     * @return longitude of location
      */
     public String getLongitude() {
         return this.longitude;
@@ -97,6 +106,8 @@ public class Location implements Serializable {
 
     /**
      * getter for street address of location
+     *
+     * @return st address of location
      */
     public String getStAddress() {
         return this.stAddress;
@@ -113,6 +124,8 @@ public class Location implements Serializable {
 
     /**
      * getter for city of location
+     *
+     * @return city of location
      */
     public String getCity() {
         return this.city;
@@ -129,6 +142,8 @@ public class Location implements Serializable {
 
     /**
      * getter for state of location
+     *
+     * @return state of location
      */
     public String getState() {
         return this.state;
@@ -145,6 +160,8 @@ public class Location implements Serializable {
 
     /**
      * getter for zip code of location
+     *
+     * @return zip code of location
      */
     public String getZip() {
         return this.zip;
@@ -161,6 +178,8 @@ public class Location implements Serializable {
 
     /**
      * getter for type of location
+     *
+     * @return type of location
      */
     public String getType() {
         return this.type;
@@ -177,6 +196,8 @@ public class Location implements Serializable {
 
     /**
      * getter for phone number of location
+     *
+     * @return phone number of location
      */
     public String getPhone() {
         return this.phone;
@@ -193,6 +214,8 @@ public class Location implements Serializable {
 
     /**
      * getter for website of location
+     *
+     * @return website of location
      */
     public String getWebsite() {
         return this.website;
