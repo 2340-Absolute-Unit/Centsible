@@ -34,9 +34,11 @@ import edu.gatech.cs2340.centsible.model.Location;
 public class DataPullActivity extends AppCompatActivity implements Serializable {
 
     private TextView textName;
+    private Button toMap;
     private File downloadedFile;
     private LinearLayout linLayout;
     private boolean parsed = false;
+    public ArrayList<Location> locArr = new ArrayList<Location>();
 
     private final FirebaseStorage storage = FirebaseStorage.getInstance();
     private final StorageReference storageReference = storage.getReferenceFromUrl("gs://centsible-d48e9.appspot.com").child("locations/")
@@ -58,28 +60,17 @@ public class DataPullActivity extends AppCompatActivity implements Serializable 
         setContentView(R.layout.activity_data_pull);
 
         linLayout = findViewById(R.id.dataLayout);
-        Button btnDownload = findViewById(R.id.btnDownload);
-        Button btnParse = findViewById(R.id.btnParse);
-        textName = findViewById(R.id.textView);
-        TextView fileContent = findViewById(R.id.fileContent);
 
-        btnDownload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                downloadedFile = downloadFile();
-            }
-        });
-
-        btnParse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (downloadedFile != null && !parsed) {
-                    parseFile(downloadedFile);
-                }
-            }
-        });
+        toMap = (Button) findViewById(R.id.mapButton);
         downloadedFile = downloadFile();
 
+//        toMap.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(CompleteMapActivity.createIntent(DataPullActivity.this));
+//                startActivity(intent);
+//            }
+//        });
 
     }
 
@@ -90,7 +81,7 @@ public class DataPullActivity extends AppCompatActivity implements Serializable 
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     String filename = localFile.getName();
-                    textName.setText(filename);
+                    //textName.setText(filename);
                     Toast.makeText(DataPullActivity.this, "Downloaded", Toast.LENGTH_SHORT).show();
                     if (!parsed) {
                         parseFile(localFile);
@@ -116,25 +107,13 @@ public class DataPullActivity extends AppCompatActivity implements Serializable 
         String[] locations = new String[]{};
         StringBuilder outP = new StringBuilder();
         ArrayList<Location> locArr = new ArrayList<>();
+
         int counter = 0;
         LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
         try {
-            /*br = new BufferedReader(new FileReader(downloadedFile));
-            while ((line = br.readLine()) != null) {
-                locations = line.split(csvSplitBy);
-                String[] tester = new String[]{"1", "2", "3"};
-                //counter++;
-            }
-            for (String word : locations) {
-                outP.append(word);
-            }
 
-            fileContent.setText(Arrays.toString(locations));*/
-
-            // Create an object of filereader
-            // class with CSV file as a parameter.
             FileReader filereader = new FileReader(inFile);
 
             // create csvReader object passing

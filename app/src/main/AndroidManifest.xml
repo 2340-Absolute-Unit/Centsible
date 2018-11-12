@@ -42,6 +42,7 @@
         <activity android:name=".activities.StorageActivity" />
         <activity android:name=".activities.DataPullActivity" />
         <activity android:name=".activities.DetailedLocation" />
+        <activity android:name=".activities.CompleteMapActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

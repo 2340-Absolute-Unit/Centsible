@@ -34,6 +34,9 @@ import edu.gatech.cs2340.centsible.R;
 
 @SuppressWarnings("ALL")
 public class StorageActivity extends AppCompatActivity {
+
+    // [START storage_field_declaration]
+    private Button btnChoose, btnUpload, goToDownload, goToCompleteMap;
     private ImageView imageView;
 
     private Uri filePath;
@@ -103,6 +106,18 @@ public class StorageActivity extends AppCompatActivity {
         Button goToDownload = findViewById(R.id.goToDownload);
         Button btnChoose = findViewById(R.id.btnChoose);
         Button btnUpload = findViewById(R.id.btnUpload);
+        Button goToCompleteMap = (Button) findViewById(R.id.goToMap);
+        goToCompleteMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CompleteMapActivity.createIntent(StorageActivity.this));
+                startActivity(intent);
+            }
+        });
+
+        goToDownload = (Button) findViewById(R.id.goToDownload);
+        btnChoose = (Button) findViewById(R.id.btnChoose);
+        btnUpload = (Button) findViewById(R.id.btnUpload);
         //imageView = (ImageView) findViewById(R.id.imgView);
 
         btnChoose.setOnClickListener(new View.OnClickListener() {

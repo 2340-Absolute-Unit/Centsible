@@ -64,6 +64,15 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="17dp"
         android:text="@string/list_donations" />
+
+    <Button
+        android:id="@+id/goToMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/sign_out_button"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="34dp"
+        android:text="Go To Map" />
     <!--
     <ImageView
         android:id="@+id/imgView"
