@@ -1,3 +1,24 @@
+package edu.gatech.cs2340.centsible.adapter;
+
+import android.content.res.Resources;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Query;
+
+import java.util.Objects;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import edu.gatech.cs2340.centsible.R;
+import edu.gatech.cs2340.centsible.model.Donation;
+
 /**
  * Copyright 2017 Google Inc. All Rights Reserved.
  *
@@ -12,28 +33,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-package edu.gatech.cs2340.centsible.adapter;
-
-import android.content.res.Resources;
-import androidx.recyclerview.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.Query;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import edu.gatech.cs2340.centsible.R;
-import edu.gatech.cs2340.centsible.model.Donation;
-
-/**
+ *
  * RecyclerView adapter for a list of donations.
  */
+@SuppressWarnings("ALL")
 public class DonationAdapter extends FirestoreAdapter<DonationAdapter.ViewHolder> {
 
     public interface OnDonationSelectedListener {
@@ -42,22 +45,29 @@ public class DonationAdapter extends FirestoreAdapter<DonationAdapter.ViewHolder
 
     }
 
-    private OnDonationSelectedListener mListener;
+    private final OnDonationSelectedListener mListener;
 
+    /**
+     * create intent of context to listn to donation in firestore
+     *
+     * @param query data info
+     * @param listener to get donation from firestore
+     */
     public DonationAdapter(Query query, OnDonationSelectedListener listener) {
         super(query);
         super.startListening();
         mListener = listener;
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         return new ViewHolder(inflater.inflate(R.layout.donation_item, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bind(getSnapshot(position), mListener);
     }
 
@@ -72,18 +82,18 @@ public class DonationAdapter extends FirestoreAdapter<DonationAdapter.ViewHolder
 //        @BindView(R.id.donation_location)
 //        TextView locationView;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final DocumentSnapshot snapshot,
-                         final OnDonationSelectedListener listener) {
+        void bind(final DocumentSnapshot snapshot,
+                  final OnDonationSelectedListener listener) {
 
             Donation donation = snapshot.toObject(Donation.class);
             Resources resources = itemView.getResources();
 
-            nameView.setText(donation.getName());
+            nameView.setText(Objects.requireNonNull(donation).getName());
             categoryView.setText(donation.getCategory());
 
             // Click listener

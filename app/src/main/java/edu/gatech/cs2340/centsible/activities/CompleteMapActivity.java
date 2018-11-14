@@ -23,21 +23,32 @@ import edu.gatech.cs2340.centsible.R;
 import edu.gatech.cs2340.centsible.model.Location;
 import edu.gatech.cs2340.centsible.model.LocationManager;
 
+@SuppressWarnings("ALL")
+/**
+ * complete map activity
+ */
 public class CompleteMapActivity extends AppCompatActivity implements OnMapReadyCallback {
-    private ArrayList<Location> locArray = new ArrayList<Location>(LocationManager.getInstance().getList());
+    private ArrayList<Location> locArray = new ArrayList<>(LocationManager.getInstance().getList());
     private LinearLayout linLayout;
 
     @NonNull
+    /**
+     * create intent of context of complete map activity
+     *
+     * @param context of nonnull context of complete map activity
+     * @return intent of map activity
+     */
     public static Intent createIntent(@NonNull Context context) {
         //useLoc = inLoc;
         return new Intent().setClass(context, CompleteMapActivity.class);
     }
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complete_map);
 
-        linLayout = (LinearLayout) findViewById(R.id.dataLayout);
+        linLayout = findViewById(R.id.dataLayout);
 
         //Intent intent = getIntent();
         //locArray = (ArrayList<Location>)intent.getSerializableExtra("key");
@@ -54,13 +65,14 @@ public class CompleteMapActivity extends AppCompatActivity implements OnMapReady
         mMap.clear();
         mMap.setBuildingsEnabled(true);
         for (Location indLoc : locArray) {
-            if (indLoc.getName().equals("Name")) {
+            if ("Name".equals(indLoc.getName())) {
 
             } else {
                 Double tempLat = Double.parseDouble(indLoc.getLatitude());
                 Double tempLon = Double.parseDouble(indLoc.getLongitude());
                 LatLng tempLL = new LatLng(tempLat, tempLon);
-                mMap.addMarker(new MarkerOptions().position(tempLL).title(indLoc.getName() + "\n" + indLoc.getPhone()));
+                mMap.addMarker(new MarkerOptions().position(tempLL).title(indLoc.getName()
+                        + "\n" + indLoc.getPhone()));
             }
         }
         //mMap.setZoom(15);

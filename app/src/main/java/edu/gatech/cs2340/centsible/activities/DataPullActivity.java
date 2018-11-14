@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -15,55 +14,43 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnPausedListener;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageException;
-import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import com.firebase.ui.auth.util.ExtraConstants;
-import com.firebase.ui.auth.IdpResponse;
 
-import org.w3c.dom.Text;
-
-import java.io.ByteArrayOutputStream;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.UUID;
+
 import com.opencsv.CSVReader;
 
 import edu.gatech.cs2340.centsible.R;
 import edu.gatech.cs2340.centsible.model.Location;
-import edu.gatech.cs2340.centsible.model.LocationManager;
 
+@SuppressWarnings("ALL")
 public class DataPullActivity extends AppCompatActivity implements Serializable {
 
+    private TextView textName;
     private Button toMap;
     private File downloadedFile;
     private LinearLayout linLayout;
     private boolean parsed = false;
     public ArrayList<Location> locArr = new ArrayList<Location>();
 
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageReference = storage.getReferenceFromUrl("gs://centsible-d48e9.appspot.com").child("locations/")
+    private final FirebaseStorage storage = FirebaseStorage.getInstance();
+    private final StorageReference storageReference = storage.getReferenceFromUrl("gs://centsible-d48e9.appspot.com").child("locations/")
             .child("currentLocations");
 
     @NonNull
+    /**
+     * create intent of context to pull data
+     *
+     * @param context of nonnull context of data pull
+     * @return intent of data information from donation
+     */
     public static Intent createIntent(@NonNull Context context) {
         return new Intent().setClass(context, DataPullActivity.class);
     }
@@ -72,17 +59,18 @@ public class DataPullActivity extends AppCompatActivity implements Serializable 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_pull);
 
-        linLayout = (LinearLayout) findViewById(R.id.dataLayout);
+        linLayout = findViewById(R.id.dataLayout);
+
         toMap = (Button) findViewById(R.id.mapButton);
         downloadedFile = downloadFile();
 
-        toMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CompleteMapActivity.createIntent(DataPullActivity.this));
-                startActivity(intent);
-            }
-        });
+//        toMap.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(CompleteMapActivity.createIntent(DataPullActivity.this));
+//                startActivity(intent);
+//            }
+//        });
 
     }
 
@@ -101,7 +89,7 @@ public class DataPullActivity extends AppCompatActivity implements Serializable 
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
-                public void onFailure(Exception e) {
+                public void onFailure(@NonNull Exception e) {
 
                 }
             });
@@ -118,6 +106,7 @@ public class DataPullActivity extends AppCompatActivity implements Serializable 
         BufferedReader br = null;
         String[] locations = new String[]{};
         StringBuilder outP = new StringBuilder();
+        ArrayList<Location> locArr = new ArrayList<>();
 
         int counter = 0;
         LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
@@ -188,7 +177,7 @@ public class DataPullActivity extends AppCompatActivity implements Serializable 
                 final Location outLoc = loc;
                 btn.setText(loc.getName());
                 this.linLayout.addView(btn,lparams);
-                Button btn1 = ((Button) findViewById(id_));
+                Button btn1 = findViewById(id_);
                 btn1.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
                         Intent intent = new Intent(DetailedLocation.createIntent(DataPullActivity.this));
@@ -205,18 +194,8 @@ public class DataPullActivity extends AppCompatActivity implements Serializable 
             this.parsed = true;
 
             //fileContent.setText(tempStr);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException l) {
             l.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 }

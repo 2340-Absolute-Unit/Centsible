@@ -26,11 +26,21 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * adding donation
+ */
+@SuppressWarnings("ALL")
 public class AddDonationActivity extends AppCompatActivity {
 
     private FirebaseFirestore mFirestore;
     private Double value;
 
+    /**
+     * create intent of context to add a donation
+     *
+     * @param context of nonnull context of add donation
+     * @return intent of adding a donation
+     */
     public static Intent createIntent(@NonNull Context context) {
         return new Intent(context, AddDonationActivity.class);
     }
@@ -40,14 +50,15 @@ public class AddDonationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_donation);
 
-        final Spinner spinner = (Spinner) findViewById(R.id.donation_spinner);
+        final Spinner spinner = findViewById(R.id.donation_spinner);
         ArrayAdapter<Location> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, LocationManager.getInstance().getList());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        Button submitButton = (Button) findViewById(R.id.submit_button);
+        Button submitButton = findViewById(R.id.submit_button);
         submitButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 TextView nameTextView = findViewById(R.id.name_textfield);
@@ -59,15 +70,15 @@ public class AddDonationActivity extends AppCompatActivity {
                 String shortDescription = shortDescriptionTextView.getText().toString();
                 String longDescription = longDescriptionTextView.getText().toString();
                 String category = categoryTextView.getText().toString();
-                if (valueTextField.getText().toString().equals("")) {
+                if ("".equals(valueTextField.getText().toString())) {
                     value = 0.0;
                 } else {
                     value = Double.valueOf(valueTextField.getText().toString());
                 }
                 Location loc = (Location) spinner.getSelectedItem();
 
-                Donation d = new Donation(loc.getKey(), name, shortDescription, longDescription, value,
-                        category, UserFacade.getInstance().getUser().getUid(), new Date());
+                Donation d = new Donation(loc.getKey(), name, shortDescription, longDescription,
+                        value, category, UserFacade.getInstance().getUser().getUid(), new Date());
 
                 // send to firebase
 
@@ -94,9 +105,10 @@ public class AddDonationActivity extends AppCompatActivity {
 
 
                 startActivity(DonationActivity.createIntent(AddDonationActivity.this));
+                finish();
             }
         });
-        Button cancelButton = (Button) findViewById(R.id.cancel_button);
+        Button cancelButton = findViewById(R.id.cancel_button);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

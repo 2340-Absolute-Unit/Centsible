@@ -1,9 +1,8 @@
 package edu.gatech.cs2340.centsible.model;
 
+@SuppressWarnings("ALL")
 public enum UserEntitlements {
-    GUEST(true, false, false, false, false),
-    USER(true, false, false, false, false),
-    ADMIN(true, true, true, true, true);
+    GUEST(), USER(), ADMIN();
 
     private boolean readData;
     private boolean writeShelter;
@@ -11,7 +10,15 @@ public enum UserEntitlements {
     private boolean deleteUser;
     private boolean addAdmin;
 
-    UserEntitlements(boolean readData, boolean writeShelter, boolean addUser,
+    UserEntitlements() {
+        boolean readData = true;
+        boolean writeShelter = false;
+        boolean addUser = false;
+        boolean deleteUser = false;
+        boolean addAdmin = false;
+    }
+
+    /*UserEntitlements(boolean readData, boolean writeShelter, boolean addUser,
                      boolean deleteUser, boolean addAdmin) {
         this.readData = readData;
         this.writeShelter = writeShelter;
@@ -38,6 +45,6 @@ public enum UserEntitlements {
 
     public boolean canAddAdmin() {
         return addAdmin;
-    }
+    }*/
 
 }

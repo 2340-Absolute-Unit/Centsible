@@ -1,11 +1,7 @@
 package edu.gatech.cs2340.centsible.model;
 
-import android.content.Intent;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -16,41 +12,57 @@ import com.opencsv.CSVReader;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import androidx.annotation.NonNull;
 
 
+@SuppressWarnings("ALL")
 public class LocationManager {
 
     // singleton
     private static final LocationManager INSTANCE = new LocationManager();
 
-    public LocationManager() {
+    private LocationManager() {
         retrieveLocationsFromFirebase();
     }
 
+    /**
+     * get instance of location manager
+     *
+     * @return instance of location manager
+     */
     public static LocationManager getInstance() {
         return INSTANCE;
     }
 
+    /**
+     * get location of location manager
+     *
+     * @param key key of the particular location to get
+     * @return the location
+     */
     public Location getLocation(String key) {
         return locations.get(key);
     }
 
+    /**
+     * get list of location managers
+     *
+     * @return list of locations
+     */
     public List<Location> getList() {
-        List<Location> list = new ArrayList<Location>(locations.values());
-        return list;
+        return new ArrayList<>(locations.values());
     }
 
-    HashMap<String, Location> locations;
+    private HashMap<String, Location> locations;
 
 
-    public void retrieveLocationsFromFirebase() {
+    private void retrieveLocationsFromFirebase() {
         locations = new HashMap<>();
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageReference = storage.getReferenceFromUrl("gs://centsible-d48e9.appspot.com").child("locations/")
@@ -60,7 +72,7 @@ public class LocationManager {
     }
 
 
-    private File downloadFile(StorageReference storageReference) {
+    private void downloadFile(StorageReference storageReference) {
         try {
             final File localFile = File.createTempFile("text", "csv");
             storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
@@ -71,14 +83,12 @@ public class LocationManager {
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
-                public void onFailure(Exception e) {
+                public void onFailure(@NonNull Exception e) {
 
                 }
             });
 
-            return localFile;
-        } catch (IOException e) {
-            return null;
+        } catch (IOException ignored) {
         }
     }
 
@@ -88,7 +98,7 @@ public class LocationManager {
         BufferedReader br = null;
         String[] locations = new String[]{};
         StringBuilder outP = new StringBuilder();
-        ArrayList<Location> locArr = new ArrayList<Location>();
+        ArrayList<Location> locArr = new ArrayList<>();
         int counter = 0;
         LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -171,18 +181,8 @@ public class LocationManager {
             }
 
             //fileContent.setText(tempStr);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException l) {
             l.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 }

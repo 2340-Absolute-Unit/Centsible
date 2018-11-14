@@ -1,3 +1,27 @@
+package edu.gatech.cs2340.centsible.fragments;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+import java.util.Objects;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import edu.gatech.cs2340.centsible.R;
+import edu.gatech.cs2340.centsible.Filters;
+import edu.gatech.cs2340.centsible.model.Location;
+import edu.gatech.cs2340.centsible.model.LocationManager;
+
 /**
  * Copyright 2017 Google Inc. All Rights Reserved.
  *
@@ -14,35 +38,18 @@
  * limitations under the License.
  */
 
-package edu.gatech.cs2340.centsible.fragments;
-
-import android.content.Context;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Filter;
-import android.widget.Spinner;
-import android.widget.TextView;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import edu.gatech.cs2340.centsible.R;
-import edu.gatech.cs2340.centsible.Filters;
-import edu.gatech.cs2340.centsible.model.Location;
-import edu.gatech.cs2340.centsible.model.LocationManager;
-
+@SuppressWarnings("ALL")
 public class FilterDialogFragment extends DialogFragment {
 
     public static final String TAG = "Filter";
 
     public interface FilterListener {
 
+        /**
+         * filter search
+         *
+         * @param filters filter to filter search
+         */
         void onFilter(Filters filters);
 
     }
@@ -62,7 +69,7 @@ public class FilterDialogFragment extends DialogFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater,
+    public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.dialog_filters, container, false);
@@ -74,7 +81,8 @@ public class FilterDialogFragment extends DialogFragment {
     @Override
     public void onStart() {
         super.onStart();
-        ArrayAdapter<Location> adapter = new ArrayAdapter<Location>(getActivity(), android.R.layout.simple_spinner_item, LocationManager.getInstance().getList());
+        ArrayAdapter<Location> adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),
+                android.R.layout.simple_spinner_item, LocationManager.getInstance().getList());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mLocationSpinner.setAdapter(adapter);
     }
@@ -90,12 +98,15 @@ public class FilterDialogFragment extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
-        getDialog().getWindow().setLayout(
+        Objects.requireNonNull(getDialog().getWindow()).setLayout(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
     }
 
+    /**
+     * search filters based on click
+     */
     @OnClick(R.id.search_button)
     public void onSearchClicked() {
         if (mFilterListener != null) {
@@ -105,13 +116,16 @@ public class FilterDialogFragment extends DialogFragment {
         dismiss();
     }
 
+    /**
+     *cancel search filters based on click
+     */
     @OnClick(R.id.cancel_button)
     public void onCancelClicked() {
         dismiss();
     }
 
 
-    public Filters getFilters() {
+    private Filters getFilters() {
         Filters filter = new Filters();
         filter.setCategory(getCategory());
         filter.setName(getName());
@@ -119,6 +133,9 @@ public class FilterDialogFragment extends DialogFragment {
         return filter;
     }
 
+    /**
+     * reset filters
+     */
     public void resetFilters() {
         if (mRootView != null) {
             mLocationSpinner.setSelection(0);
@@ -127,25 +144,25 @@ public class FilterDialogFragment extends DialogFragment {
         }
     }
 
-    public String getCategory() {
-        if (mCategoryTextField.getText().toString() == "") {
+    private String getCategory() {
+        if (Objects.equals(mCategoryTextField.getText().toString(), "")) {
             return null;
         } else {
             return mCategoryTextField.getText().toString();
         }
     }
 
-    public String getName() {
-        if (mNameTextField.getText().toString() == "") {
+    private String getName() {
+        if (Objects.equals(mNameTextField.getText().toString(), "")) {
             return null;
         } else {
             return mNameTextField.getText().toString();
         }
     }
 
-    public String getLocation() {
+    private String getLocation() {
         Location loc = (Location) mLocationSpinner.getSelectedItem();
-        if (loc.getName().equals("Name")) {
+        if ("Name".equals(loc.getName())) {
             return null;
         } else {
             return loc.getKey();
