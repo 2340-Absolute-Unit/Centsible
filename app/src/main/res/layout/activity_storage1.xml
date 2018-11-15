@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/root"
@@ -47,7 +45,7 @@
         android:layout_below="@+id/goToDownload"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
-        android:text="Sign Out" />
+        android:text="@string/action_sign_out_short" />
 
     <Button
         android:id="@+id/add_donation_button"
@@ -56,7 +54,7 @@
         android:layout_below="@+id/sign_out_button"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="41dp"
-        android:text="Add Donation" />
+        android:text="@string/add_donation" />
 
     <Button
         android:id="@+id/list_donation_button"
@@ -65,7 +63,7 @@
         android:layout_below="@+id/add_donation_button"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="17dp"
-        android:text="List Donations" />
+        android:text="@string/list_donations" />
 
     <Button
         android:id="@+id/goToMap"

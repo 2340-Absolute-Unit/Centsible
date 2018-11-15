@@ -1,13 +1,11 @@
 package edu.gatech.cs2340.centsible.model;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -18,47 +16,30 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
-import edu.gatech.cs2340.centsible.activities.SignedInActivity;
 
 
 // POJO
 
+@SuppressWarnings({"ALL", "unused"})
 public class User {
-    public static final String TAG = "NEWCENTSIBLE";
+    private static final String TAG = "NEWCENTSIBLE";
 
-    private String displayName;
-    private String uid;
-    private String email;
-    private boolean emailVerified;
-    private boolean isLocked;
-    public ArrayList<UserEntitlements> entitlements = new ArrayList<>();
+    private final String displayName;
+    private final String uid;
+    @SuppressWarnings("unused")
+    private final String email;
+    private final boolean emailVerified;
+    // --Commented out by Inspection (11/10/18, 1:41 AM):private boolean isLocked;
+    private ArrayList<UserEntitlements> entitlements = new ArrayList<>();
 
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public List<UserEntitlements> getEntitlements() {
-        return entitlements;
-    }
-
-    public void setEntitlements(ArrayList<UserEntitlements> entitlements) {
-        this.entitlements = entitlements;
-    }
-
-    public boolean isEmailVerified() {
-        return emailVerified;
-    }
-
+    /**
+     * constructor of firebase user
+     *
+     * @param user user of firebase
+     */
     public User(FirebaseUser user) {
         displayName = user.getDisplayName();
         uid = user.getUid();
@@ -67,16 +48,61 @@ public class User {
         retrieveEntitlementsFromFirestore();
     }
 
+    /**
+     * getter for display name of iser
+     */
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    /**
+     * getter for id of user
+     */
+    public String getUid() {
+        return uid;
+    }
+
+// --Commented out by Inspection START (11/10/18, 1:41 AM):
+//    public String getEmail() {
+//        return email;
+//    }
+// --Commented out by Inspection STOP (11/10/18, 1:41 AM)
+
+    /**
+     * getter for entitlements of user
+     *
+     * @return list of user entitlements
+     */
+    public List<UserEntitlements> getEntitlements() {
+        return entitlements;
+    }
+
+    /**
+     * setter for user entitlements
+     *
+     * @param entitlements new user entitlements
+     */
+    public void setEntitlements(ArrayList<UserEntitlements> entitlements) {
+        this.entitlements = entitlements;
+    }
+
+// --Commented out by Inspection START (11/10/18, 1:41 AM):
+//    public boolean isEmailVerified() {
+//        return emailVerified;
+//    }
+// --Commented out by Inspection STOP (11/10/18, 1:41 AM)
+
+
     private void retrieveEntitlementsFromFirestore() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        final CollectionReference usersRef = db.collection("users");
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        final CollectionReference usersRef = database.collection("users");
         Query query = usersRef.whereEqualTo("uid", uid);
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     QuerySnapshot s = task.getResult();
-                    if (!(task.getResult().isEmpty())) {
+                    if (!(Objects.requireNonNull(task.getResult()).isEmpty())) {
                         if (task.getResult().size() > 1) {
                             Log.d(TAG, "There are multiple documents matching the uid" + uid);
                             return; // error handling
@@ -99,7 +125,7 @@ public class User {
                                         new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
-                                                Log.d(TAG, "Failure to add an entitlement to Firestore");
+                                                Log.d(TAG, "Failed to add an entitlement to Firestore");
                                             }
                                         }
                                 );

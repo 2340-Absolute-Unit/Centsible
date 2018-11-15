@@ -26,6 +26,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
+/**
+ * donation activity class
+ */
+@SuppressWarnings("ALL")
 public class DonationActivity extends AppCompatActivity
         implements DonationAdapter.OnDonationSelectedListener, FilterDialogFragment.FilterListener {
     @BindView(R.id.donation_recycler)
@@ -41,7 +45,12 @@ public class DonationActivity extends AppCompatActivity
     private DonationAdapter mAdapter;
     private static final String TAG = "CentsibleTAG";
 
-
+    /**
+     * create intent of context to see donation activity
+     *
+     * @param context of nonnull context of donation activity
+     * @return intent of donation activity
+     */
     public static Intent createIntent(Context context) {
         return new Intent(context, DonationActivity.class);
     }
@@ -138,12 +147,18 @@ public class DonationActivity extends AppCompatActivity
         mAdapter.setQuery(query);
     }
 
+    /**
+     * filter donations
+     */
     @OnClick(R.id.filter_bar)
     public void onFilterClicked() {
         // Show the dialog containing filter options
         mFilterDialog.show(getSupportFragmentManager(), FilterDialogFragment.TAG);
     }
 
+    /**
+     * clear filters on click
+     */
     @OnClick(R.id.button_clear_filter)
     public void onClearFilterClicked() {
         mFilterDialog.resetFilters();

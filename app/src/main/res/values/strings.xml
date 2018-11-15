@@ -1,19 +1,14 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Centsible</string>
-    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_login" tools:keep="@string/title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
+    <string name="prompt_password" tools:keep="@string/prompt_password">Password (optional)</string>
     <string name="action_sign_out_short">Sign out</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for
-        providing email completions."
+    <string name="error_incorrect_password" tools:keep="@string/error_incorrect_password">
+        This password is incorrect</string>
+    <string name="permission_rationale" tools:keep="@string/permission_rationale">
+        "Contacts permissions are needed for providing email completions."
     </string>
     <string name="sign_in_cancelled">The sign in process was cancelled</string>
     <string name="no_internet_connection">There is no internet
@@ -22,12 +17,31 @@
     <string name="choose">Choose</string>
     <string name="upload">Upload</string>
     <string name="to_file_page">To File Page</string>
-    <string name="download">Download</string>
-    <string name="parse">Parse</string>
+    <string name="download" tools:keep="@string/download">Download</string>
     <string name="textview">TextView</string>
     <string name="go_to_download">Go to Download</string>
-    <string name="filename">filename</string>
     <string name="title_activity_maps">Map</string>
-    <string name="title_activity_add_donation">AddDonationActivity</string>
+    <string name="title_activity_add_donation">Add Donation Activity</string>
     <string name="title_activity_landing_page">Centsible</string>
+
+    <!-- Strings to fix hardcoded texts errors -->
+    <string name="filters">Filters</string>
+    <string name="filter">Filter</string>
+    <string name="name">Name</string>
+    <string name="entitlements">Entitlements</string>
+    <string name="category">Category</string>
+    <string name="cancel">Cancel</string>
+    <string name="apply">Apply</string>
+    <string name="no_results">No results were found</string>
+    <string name="description">Description</string>
+    <string name="short_description">Short Description</string>
+    <string name="long_description">Long Description</string>
+    <string name="value">Value</string>
+    <string name="date">Date</string>
+    <string name="location">Location</string>
+    <string name="add_donation">Add Donation</string>
+    <string name="list_donations">List Donations</string>
+    <string name="submit">Submit</string>
+
+    
 </resources>
