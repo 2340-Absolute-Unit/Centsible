@@ -80,6 +80,7 @@ public class CompleteMapActivity extends AppCompatActivity implements OnMapReady
         Double fLat = Double.parseDouble(locArray.get(1).getLatitude());
         Double fLon = Double.parseDouble(locArray.get(1).getLongitude());
         LatLng focus = new LatLng(fLat, fLon);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(focus, 25f));
+        float tempFloat = 25f;
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(focus, tempFloat));
     }
 }

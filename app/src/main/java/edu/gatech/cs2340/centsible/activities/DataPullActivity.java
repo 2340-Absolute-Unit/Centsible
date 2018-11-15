@@ -130,7 +130,8 @@ public class DataPullActivity extends AppCompatActivity implements Serializable 
 
             while (nextRecord != null) {
                 Location tempLoc = new Location();
-                for (int i = 0; i < 11; i++) {
+                int tempNum = 11;
+                for (int i = 0; i < tempNum; i++) {
                     outP.append(nextRecord[i]);
                     if (i == 0) {
                         tempLoc.setKey(nextRecord[i]);

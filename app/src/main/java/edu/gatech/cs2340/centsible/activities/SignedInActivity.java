@@ -118,9 +118,10 @@ public class SignedInActivity extends AppCompatActivity {
                             Log.d(TAG, "There are multiple documents matching the uid" + uid);
                             return; // error handling
                         }
-                        ArrayList<UserEntitlements> userEntitlements = new ArrayList<>();
+                        List<UserEntitlements> userEntitlements = new ArrayList<>();
                         for (QueryDocumentSnapshot document: task.getResult()) {
                             Map<String, Object> tempDoc = document.getData();
+                            @SuppressWarnings("unchecked") // safe to ignore this warning
                             Iterable<String> remoteEntitlements = (List<String>) tempDoc
                                     .get("entitlements");
                             for (String j: remoteEntitlements) {

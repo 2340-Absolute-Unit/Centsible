@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -102,7 +103,7 @@ public final class LocationManager {
         BufferedReader br = null;
         String[] locations = new String[]{};
         StringBuilder outP = new StringBuilder();
-        List<Location> locArr = new ArrayList<>();
+        Collection<Location> locArr = new ArrayList<>();
         int counter = 0;
         LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);

@@ -14,6 +14,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -87,7 +88,8 @@ public class User {
      *
      * @param entitlements new user entitlements
      */
-    public void setEntitlements(ArrayList<UserEntitlements> entitlements) {
+    public void setEntitlements(List<UserEntitlements> entitlements) {
+        //noinspection AssignmentOrReturnOfFieldWithMutableType
         this.entitlements = entitlements;
     }
 
@@ -113,6 +115,7 @@ public class User {
                             return; // error handling
                         }
                         for (QueryDocumentSnapshot document: task.getResult()) {
+                            @SuppressWarnings("unchecked")
                             Iterable<String> remoteEntitlements = (List<String>) document.getData()
                                     .get("entitlements");
                             for (String j: remoteEntitlements) {
@@ -121,7 +124,7 @@ public class User {
                         }
                     } else {
                         entitlements.add(UserEntitlements.USER);
-                        List<String> list = new ArrayList<>();
+                        Collection<String> list = new ArrayList<>();
                         list.add("USER");
                         Map<String, Object> user = new HashMap<>();
                         user.put("entitlements", list);

@@ -46,8 +46,7 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
     private static final String TAG = "Firestore Adapter";
 
     private Query mQuery;
-    //@android.support.annotation.Nullable
-    @android.support.annotation.Nullable
+
     private ListenerRegistration mRegistration;
 
     private final List<DocumentSnapshot> mSnapshots = new ArrayList<>();
