@@ -79,8 +79,7 @@ public final class LocationManager {
     private void downloadFile(StorageReference storageReference) {
         try {
             final File localFile = File.createTempFile("text", "csv");
-            storageReference.getFile(localFile)
-                    .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     String filename = localFile.getName();
@@ -128,10 +127,10 @@ public final class LocationManager {
             // create csvReader object passing
             // file reader as a parameter
             CSVReader csvReader = new CSVReader(filereader);
-            String[] nextRecord = csvReader.readNext();
+            String[] nextRecord;
 
             // we are going to read data line by line
-            while (nextRecord != null) {
+            while ((nextRecord = csvReader.readNext()) != null) {
                 Location tempLoc = new Location();
                 for (int i = 0; i < 11; i++) {
                     outP.append(nextRecord[i]);
