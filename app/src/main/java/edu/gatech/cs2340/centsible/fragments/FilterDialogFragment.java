@@ -38,7 +38,6 @@ import edu.gatech.cs2340.centsible.model.LocationManager;
  * limitations under the License.
  */
 
-@SuppressWarnings("ALL")
 public class FilterDialogFragment extends DialogFragment {
 
     public static final String TAG = "Filter";

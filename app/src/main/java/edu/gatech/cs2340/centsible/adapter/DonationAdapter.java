@@ -36,12 +36,17 @@ import edu.gatech.cs2340.centsible.model.Donation;
  *
  * RecyclerView adapter for a list of donations.
  */
-@SuppressWarnings("ALL")
+
 public class DonationAdapter extends FirestoreAdapter<DonationAdapter.ViewHolder> {
 
     public interface OnDonationSelectedListener {
 
-        void onDonationSelected(DocumentSnapshot restaurant);
+        /**
+         * what to do when donation is selected
+         *
+         * @param location the location the donation is at
+         */
+        void onDonationSelected(DocumentSnapshot location);
 
     }
 

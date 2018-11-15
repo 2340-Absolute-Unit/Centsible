@@ -16,6 +16,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,15 +25,13 @@ import edu.gatech.cs2340.centsible.R;
 import edu.gatech.cs2340.centsible.model.Location;
 import edu.gatech.cs2340.centsible.model.LocationManager;
 
-@SuppressWarnings("ALL")
 /**
  * complete map activity
  */
 public class CompleteMapActivity extends AppCompatActivity implements OnMapReadyCallback {
-    private ArrayList<Location> locArray = new ArrayList<>(LocationManager.getInstance().getList());
-    private LinearLayout linLayout;
+    private final LocationManager tempLoc = LocationManager.getInstance();
+    private final List<Location> locArray = new ArrayList<Location>(tempLoc.getList());
 
-    @NonNull
     /**
      * create intent of context of complete map activity
      *
@@ -48,14 +48,14 @@ public class CompleteMapActivity extends AppCompatActivity implements OnMapReady
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complete_map);
 
-        linLayout = findViewById(R.id.dataLayout);
+        LinearLayout linLayout = findViewById(R.id.dataLayout);
 
         //Intent intent = getIntent();
         //locArray = (ArrayList<Location>)intent.getSerializableExtra("key");
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        Objects.requireNonNull(mapFragment).getMapAsync(this);
 
     }
 

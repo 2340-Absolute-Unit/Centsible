@@ -20,13 +20,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import edu.gatech.cs2340.centsible.R;
 import edu.gatech.cs2340.centsible.model.Location;
 
-@SuppressWarnings("ALL")
+/**
+ * gives details of location where donation takes places
+ */
 public class DetailedLocation extends AppCompatActivity implements Serializable, OnMapReadyCallback {
     private Location useLoc;
-    @SuppressWarnings("unused")
     private GoogleMap mMap;
 
-    @NonNull
+    //@NonNull
+
     /**
      * create intent of context to get detailed location
      *
@@ -38,6 +40,7 @@ public class DetailedLocation extends AppCompatActivity implements Serializable,
         return new Intent().setClass(context, DetailedLocation.class);
     }
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_location);

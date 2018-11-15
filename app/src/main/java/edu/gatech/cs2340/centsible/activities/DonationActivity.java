@@ -29,7 +29,6 @@ import com.google.firebase.firestore.Query;
 /**
  * donation activity class
  */
-@SuppressWarnings("ALL")
 public class DonationActivity extends AppCompatActivity
         implements DonationAdapter.OnDonationSelectedListener, FilterDialogFragment.FilterListener {
     @BindView(R.id.donation_recycler)

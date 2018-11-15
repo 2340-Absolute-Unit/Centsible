@@ -24,27 +24,29 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import com.opencsv.CSVReader;
 
 import edu.gatech.cs2340.centsible.R;
 import edu.gatech.cs2340.centsible.model.Location;
 
-@SuppressWarnings("ALL")
+/**
+ * pull data
+ */
 public class DataPullActivity extends AppCompatActivity implements Serializable {
 
     private TextView textName;
-    private Button toMap;
-    private File downloadedFile;
     private LinearLayout linLayout;
-    private boolean parsed = false;
-    public ArrayList<Location> locArr = new ArrayList<Location>();
+    private boolean parsed;
+    public ArrayList<Location> locArr = new ArrayList<>();
 
     private final FirebaseStorage storage = FirebaseStorage.getInstance();
-    private final StorageReference storageReference = storage.getReferenceFromUrl("gs://centsible-d48e9.appspot.com").child("locations/")
+    private final StorageReference storageReference = storage
+            .getReferenceFromUrl("gs://centsible-d48e9.appspot.com").child("locations/")
             .child("currentLocations");
 
-    @NonNull
     /**
      * create intent of context to pull data
      *
@@ -55,19 +57,21 @@ public class DataPullActivity extends AppCompatActivity implements Serializable 
         return new Intent().setClass(context, DataPullActivity.class);
     }
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_pull);
 
         linLayout = findViewById(R.id.dataLayout);
 
-        toMap = (Button) findViewById(R.id.mapButton);
-        downloadedFile = downloadFile();
+        Button toMap = findViewById(R.id.mapButton);
+        File downloadedFile = downloadFile();
 
 //        toMap.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Intent intent = new Intent(CompleteMapActivity.createIntent(DataPullActivity.this));
+//                Intent intent = new Intent(CompleteMapActivity.
+//                  createIntent(DataPullActivity.this));
 //                startActivity(intent);
 //            }
 //        });
@@ -77,7 +81,8 @@ public class DataPullActivity extends AppCompatActivity implements Serializable 
     private File downloadFile() {
         try {
             final File localFile = File.createTempFile("text", "csv");
-            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<
+                    FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     String filename = localFile.getName();
@@ -106,7 +111,7 @@ public class DataPullActivity extends AppCompatActivity implements Serializable 
         BufferedReader br = null;
         String[] locations = new String[]{};
         StringBuilder outP = new StringBuilder();
-        ArrayList<Location> locArr = new ArrayList<>();
+        Collection<Location> locArr = new ArrayList<>();
 
         int counter = 0;
         LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
@@ -179,8 +184,11 @@ public class DataPullActivity extends AppCompatActivity implements Serializable 
                 this.linLayout.addView(btn,lparams);
                 Button btn1 = findViewById(id_);
                 btn1.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(DetailedLocation.createIntent(DataPullActivity.this));
+                        Intent intent = new Intent(DetailedLocation
+                                .createIntent(DataPullActivity.this));
                         intent.putExtra("key", outLoc);
                         startActivity(intent);
                         //startActivity(DetailedLocation.createIntent(DataPullActivity.this));

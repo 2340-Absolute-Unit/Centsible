@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -32,11 +33,12 @@ import com.firebase.ui.auth.IdpResponse;
 
 import edu.gatech.cs2340.centsible.R;
 
-@SuppressWarnings("ALL")
+/**
+ * storage activity
+ */
 public class StorageActivity extends AppCompatActivity {
 
-    // [START storage_field_declaration]
-    private Button btnChoose, btnUpload, goToDownload, goToCompleteMap;
+    private Button goToCompleteMap;
     private ImageView imageView;
 
     private Uri filePath;
@@ -47,7 +49,7 @@ public class StorageActivity extends AppCompatActivity {
     private final StorageReference storageReference = storage.getReference();
     // [END storage_field_declaration]
 
-    @NonNull
+
     /**
      * create intent of context to get storage activity
      *
@@ -56,11 +58,12 @@ public class StorageActivity extends AppCompatActivity {
      * @return intent of storage of item
      */
     public static Intent createIntent(@NonNull Context context,
-                                      @Nullable IdpResponse response) {
+                                      @Nullable Parcelable response) {
         return new Intent().setClass(context, StorageActivity.class)
                 .putExtra(ExtraConstants.IDP_RESPONSE, response);
     }
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_storage1);
@@ -103,10 +106,10 @@ public class StorageActivity extends AppCompatActivity {
             }
         });
 
-        Button goToDownload = findViewById(R.id.goToDownload);
+        /*Button goToDownload = findViewById(R.id.goToDownload);
         Button btnChoose = findViewById(R.id.btnChoose);
-        Button btnUpload = findViewById(R.id.btnUpload);
-        Button goToCompleteMap = (Button) findViewById(R.id.goToMap);
+        Button btnUpload = findViewById(R.id.btnUpload);*/
+        Button goToCompleteMap = findViewById(R.id.goToMap);
         goToCompleteMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,9 +118,9 @@ public class StorageActivity extends AppCompatActivity {
             }
         });
 
-        goToDownload = (Button) findViewById(R.id.goToDownload);
-        btnChoose = (Button) findViewById(R.id.btnChoose);
-        btnUpload = (Button) findViewById(R.id.btnUpload);
+        Button goToDownload = findViewById(R.id.goToDownload);
+        Button btnChoose = findViewById(R.id.btnChoose);
+        Button btnUpload = findViewById(R.id.btnUpload);
         //imageView = (ImageView) findViewById(R.id.imgView);
 
         btnChoose.setOnClickListener(new View.OnClickListener() {
@@ -152,7 +155,8 @@ public class StorageActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if ((requestCode == PICK_IMAGE_REQUEST) && (resultCode == RESULT_OK) && (data != null)
+                && (data.getData() != null)) {
             filePath = data.getData();
             /*try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
@@ -178,20 +182,22 @@ public class StorageActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
-                            Toast.makeText(StorageActivity.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(StorageActivity.this, "Uploaded",
+                                    Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
-                            Toast.makeText(StorageActivity.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(StorageActivity.this, "Failed "
+                                    + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+                            double progress = ((100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot
                                     .getTotalByteCount());
                             progressDialog.setMessage("Uploaded "+(int)progress+"%");
                         }

@@ -9,21 +9,20 @@ import androidx.annotation.NonNull;
 /**
  * donation model
  */
-@SuppressWarnings("ALL")
 public class Donation {
     @NonNull
-    private String location;
+    private String location = "";
     @NonNull
-    private String name;
+    private String name = "";
     @NonNull
-    private String shortDescription;
+    private String shortDescription = "";
     @NonNull
-    private String longDescription;
-    private double value;
+    private String longDescription = "";
+    private double value = 0;
     @NonNull
-    private String category;
+    private String category = "";
     @NonNull
-    private String enteredBy;
+    private String enteredBy = "";
     @ServerTimestamp
     private Date lastUpdated;
 
@@ -46,7 +45,6 @@ public class Donation {
      * @param enteredBy person who entered donation into app
      * @param lastUpdated when the donation was last updated
      */
-    @SuppressWarnings("ConstructorWithTooManyParameters")
     public Donation(@NonNull String location, @NonNull String name,
                     @NonNull String shortDescription, @NonNull String longDescription, double value,
                     @NonNull String category, @NonNull String enteredBy, Date lastUpdated) {
@@ -75,9 +73,8 @@ public class Donation {
      *
      * @return name of donation
      */
-    @SuppressWarnings("TypeMayBeWeakened")
     @NonNull
-    public String getName() {
+    public CharSequence getName() {
         return name;
     }
 
@@ -86,9 +83,8 @@ public class Donation {
      *
      * @return short description of donation
      */
-    @SuppressWarnings("TypeMayBeWeakened")
     @NonNull
-    public String getShortDescription() {
+    public CharSequence getShortDescription() {
         return shortDescription;
     }
 
@@ -97,9 +93,8 @@ public class Donation {
      *
      * @return long description of donation
      */
-    @SuppressWarnings("TypeMayBeWeakened")
     @NonNull
-    public String getLongDescription() {
+    public CharSequence getLongDescription() {
         return longDescription;
     }
 
@@ -117,9 +112,8 @@ public class Donation {
      *
      * @return category of donation
      */
-    @SuppressWarnings("TypeMayBeWeakened")
     @NonNull
-    public String getCategory() {
+    public CharSequence getCategory() {
         return category;
     }
 

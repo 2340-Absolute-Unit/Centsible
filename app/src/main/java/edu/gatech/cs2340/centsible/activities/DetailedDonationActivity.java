@@ -5,6 +5,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.gatech.cs2340.centsible.R;
 import edu.gatech.cs2340.centsible.model.Donation;
+import edu.gatech.cs2340.centsible.model.Location;
 import edu.gatech.cs2340.centsible.model.LocationManager;
 
 import android.annotation.SuppressLint;
@@ -27,7 +28,6 @@ import javax.annotation.Nullable;
 /**
  * gives details of donation
  */
-@SuppressWarnings("ALL")
 public class DetailedDonationActivity extends AppCompatActivity implements
         EventListener<DocumentSnapshot> {
 
@@ -114,7 +114,10 @@ public class DetailedDonationActivity extends AppCompatActivity implements
         //DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         DateFormat df = DateFormat.getDateTimeInstance();
         dateView.setText(df.format(d.getLastUpdated()));
-        locationView.setText(LocationManager.getInstance().getLocation(d.getLocation()).toString());
+        LocationManager tempLocation = LocationManager.getInstance();
+        String dLocation = d.getLocation();
+        Location finalLocation = tempLocation.getLocation(dLocation);
+        locationView.setText(finalLocation.toString());
 
 
     }

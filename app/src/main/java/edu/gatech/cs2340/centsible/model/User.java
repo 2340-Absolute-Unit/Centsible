@@ -6,6 +6,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -13,6 +14,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,15 +25,14 @@ import androidx.annotation.NonNull;
 
 // POJO
 
-@SuppressWarnings({"ALL", "unused"})
+/**
+ * gets user entitlements
+ */
 public class User {
     private static final String TAG = "NEWCENTSIBLE";
 
     private final String displayName;
     private final String uid;
-    @SuppressWarnings("unused")
-    private final String email;
-    private final boolean emailVerified;
     // --Commented out by Inspection (11/10/18, 1:41 AM):private boolean isLocked;
     private ArrayList<UserEntitlements> entitlements = new ArrayList<>();
 
@@ -40,16 +41,18 @@ public class User {
      *
      * @param user user of firebase
      */
-    public User(FirebaseUser user) {
+    public User(UserInfo user) {
         displayName = user.getDisplayName();
         uid = user.getUid();
-        email = user.getEmail();
-        emailVerified = user.isEmailVerified();
+        String email = user.getEmail();
+        boolean emailVerified = user.isEmailVerified();
         retrieveEntitlementsFromFirestore();
     }
 
     /**
-     * getter for display name of iser
+     * getter for display name of user
+     *
+     * @return display name of user
      */
     public String getDisplayName() {
         return displayName;
@@ -57,6 +60,8 @@ public class User {
 
     /**
      * getter for id of user
+     *
+     * @return user id of user
      */
     public String getUid() {
         return uid;
@@ -73,8 +78,8 @@ public class User {
      *
      * @return list of user entitlements
      */
-    public List<UserEntitlements> getEntitlements() {
-        return entitlements;
+    public Iterable<UserEntitlements> getEntitlements() {
+        return Collections.unmodifiableList(entitlements);
     }
 
     /**
@@ -108,14 +113,14 @@ public class User {
                             return; // error handling
                         }
                         for (QueryDocumentSnapshot document: task.getResult()) {
-                            List<String> remoteEntitlements = (List<String>) document.getData().get("entitlements");
+                            Iterable<String> remoteEntitlements = (List<String>) document.getData().get("entitlements");
                             for (String j: remoteEntitlements) {
                                 entitlements.add(UserEntitlements.valueOf(j));
                             }
                         }
                     } else {
                         entitlements.add(UserEntitlements.USER);
-                        ArrayList<String> list = new ArrayList<>();
+                        List<String> list = new ArrayList<>();
                         list.add("USER");
                         Map<String, Object> user = new HashMap<>();
                         user.put("entitlements", list);

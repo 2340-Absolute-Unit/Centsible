@@ -6,6 +6,7 @@ import edu.gatech.cs2340.centsible.R;
 import edu.gatech.cs2340.centsible.model.Donation;
 import edu.gatech.cs2340.centsible.model.Location;
 import edu.gatech.cs2340.centsible.model.LocationManager;
+import edu.gatech.cs2340.centsible.model.User;
 import edu.gatech.cs2340.centsible.model.UserFacade;
 
 import android.content.Context;
@@ -29,7 +30,6 @@ import java.util.Map;
 /**
  * adding donation
  */
-@SuppressWarnings("ALL")
 public class AddDonationActivity extends AppCompatActivity {
 
     private FirebaseFirestore mFirestore;
@@ -51,8 +51,9 @@ public class AddDonationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_donation);
 
         final Spinner spinner = findViewById(R.id.donation_spinner);
+        final LocationManager tempLoc = LocationManager.getInstance();
         ArrayAdapter<Location> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, LocationManager.getInstance().getList());
+                android.R.layout.simple_spinner_item, tempLoc.getList());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
@@ -76,9 +77,10 @@ public class AddDonationActivity extends AppCompatActivity {
                     value = Double.valueOf(valueTextField.getText().toString());
                 }
                 Location loc = (Location) spinner.getSelectedItem();
-
+                UserFacade tempUF = UserFacade.getInstance();
+                User tempUser = tempUF.getUser();
                 Donation d = new Donation(loc.getKey(), name, shortDescription, longDescription,
-                        value, category, UserFacade.getInstance().getUser().getUid(), new Date());
+                        value, category, tempUser.getUid(), new Date());
 
                 // send to firebase
 

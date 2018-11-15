@@ -9,6 +9,7 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import edu.gatech.cs2340.centsible.R;
+import edu.gatech.cs2340.centsible.model.User;
 import edu.gatech.cs2340.centsible.model.UserFacade;
 
 import android.view.View;
@@ -22,13 +23,14 @@ import edu.gatech.cs2340.centsible.model.LocationManager;
 import java.util.Arrays;
 import java.util.Objects;
 
-@SuppressWarnings("ALL")
+/**
+ * landing pge activity
+ */
 public class LandingPageActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 123;
     private View rootView;
 
-    @NonNull
     /**
      * create intent of context of landing page activity
      *
@@ -68,6 +70,7 @@ public class LandingPageActivity extends AppCompatActivity {
      * @param resultCode code to see if credentials are good to sign-in
      * @param data to check to go to resultcode
      */
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
@@ -75,7 +78,10 @@ public class LandingPageActivity extends AppCompatActivity {
 
             // Successfully signed in
             if (resultCode == RESULT_OK) {
-                UserFacade.getInstance().setUser(FirebaseAuth.getInstance().getCurrentUser());
+                UserFacade tempInstance = UserFacade.getInstance();
+                FirebaseAuth firebaseInstance = FirebaseAuth.getInstance();
+
+                tempInstance.setUser(firebaseInstance.getCurrentUser());
                 startActivity(StorageActivity.createIntent(this, response));
                 finish();
             } else {
@@ -88,7 +94,8 @@ public class LandingPageActivity extends AppCompatActivity {
                     return;
                 }
 
-                if (Objects.requireNonNull(response.getError()).getErrorCode() == ErrorCodes.NO_NETWORK) {
+                if (Objects.requireNonNull(response.getError()).getErrorCode()
+                        == ErrorCodes.NO_NETWORK) {
                     Snackbar.make(rootView, R.string.no_internet_connection,
                             Snackbar.LENGTH_LONG).show();
                     return;

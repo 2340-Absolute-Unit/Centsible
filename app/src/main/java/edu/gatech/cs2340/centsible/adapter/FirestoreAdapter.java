@@ -13,6 +13,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Copyright 2017 Google Inc. All Rights Reserved.
@@ -35,19 +36,20 @@ import java.util.ArrayList;
  * {@link DocumentSnapshot#toObject(Class)} is not cached so the same object may be deserialized
  * many times as the user scrolls.
  *
- * See the adapter classes in FirebaseUI (https://github.com/firebase/FirebaseUI-Android/tree/master/firestore) for a
+ * See the adapter classes in FirebaseUI (https://github.com/firebase/FirebaseUI-Android/tree
+ * /master/firestore) for a
  * more efficient implementation of a Firestore RecyclerView Adapter.
  */
-@SuppressWarnings("ALL")
 public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
         extends RecyclerView.Adapter<VH> implements EventListener<QuerySnapshot> {
 
     private static final String TAG = "Firestore Adapter";
 
     private Query mQuery;
+    //@android.support.annotation.Nullable
     private ListenerRegistration mRegistration;
 
-    private final ArrayList<DocumentSnapshot> mSnapshots = new ArrayList<>();
+    private final List<DocumentSnapshot> mSnapshots = new ArrayList<>();
 
     FirestoreAdapter(Query query) {
         mQuery = query;
@@ -57,7 +59,7 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
      * start listening to firestore
      */
     public void startListening() {
-        if (mQuery != null && mRegistration == null) {
+        if ((mQuery != null) && (mRegistration == null)) {
             mRegistration = mQuery.addSnapshotListener(this);
         }
     }

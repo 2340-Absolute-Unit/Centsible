@@ -17,11 +17,8 @@ import java.util.Objects;
 /**
  * map activity
  */
-@SuppressWarnings("ALL")
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    @SuppressWarnings("FieldCanBeLocal")
-    private GoogleMap mMap;
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +42,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);

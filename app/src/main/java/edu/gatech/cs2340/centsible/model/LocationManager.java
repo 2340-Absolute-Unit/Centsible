@@ -17,12 +17,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 
-
-@SuppressWarnings("ALL")
-public class LocationManager {
+/**
+ * manages locations
+ */
+public final class LocationManager {
 
     // singleton
     private static final LocationManager INSTANCE = new LocationManager();
@@ -59,7 +61,7 @@ public class LocationManager {
         return new ArrayList<>(locations.values());
     }
 
-    private HashMap<String, Location> locations;
+    private Map<String, Location> locations;
 
 
     private void retrieveLocationsFromFirebase() {
@@ -98,7 +100,7 @@ public class LocationManager {
         BufferedReader br = null;
         String[] locations = new String[]{};
         StringBuilder outP = new StringBuilder();
-        ArrayList<Location> locArr = new ArrayList<>();
+        List<Location> locArr = new ArrayList<>();
         int counter = 0;
         LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
