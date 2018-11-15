@@ -23,7 +23,8 @@ import edu.gatech.cs2340.centsible.model.Location;
 /**
  * gives details of location where donation takes places
  */
-public class DetailedLocation extends AppCompatActivity implements Serializable, OnMapReadyCallback {
+public class DetailedLocation extends AppCompatActivity implements Serializable,
+        OnMapReadyCallback {
     private Location useLoc;
     private GoogleMap mMap;
 
@@ -49,9 +50,10 @@ public class DetailedLocation extends AppCompatActivity implements Serializable,
         //MapFragment fMap = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
 
         TextView textData = findViewById(R.id.detailedData);
-        String data = useLoc.getName() + "\n\n" + useLoc.getLatitude() + ", " + useLoc.getLongitude()
-                + "\n\n" + useLoc.getStAddress() + "\n\n" + useLoc.getCity() + "\n\n"
-                + useLoc.getState() + "\n\n" + useLoc.getZip() + "\n\n" + useLoc.getType()
+        String data = useLoc.getName() + "\n\n" + useLoc.getLatitude() + ", "
+                + useLoc.getLongitude() + "\n\n" + useLoc.getStAddress() + "\n\n"
+                + useLoc.getCity() + "\n\n" + useLoc.getState() + "\n\n"
+                + useLoc.getZip() + "\n\n" + useLoc.getType()
                 + "\n\n" + useLoc.getPhone() + "\n\n" + useLoc.getWebsite();
         textData.setText(data);
 

@@ -34,7 +34,7 @@ public class User {
     private final String displayName;
     private final String uid;
     // --Commented out by Inspection (11/10/18, 1:41 AM):private boolean isLocked;
-    private ArrayList<UserEntitlements> entitlements = new ArrayList<>();
+    private List<UserEntitlements> entitlements = new ArrayList<>();
 
     /**
      * constructor of firebase user
@@ -113,7 +113,8 @@ public class User {
                             return; // error handling
                         }
                         for (QueryDocumentSnapshot document: task.getResult()) {
-                            Iterable<String> remoteEntitlements = (List<String>) document.getData().get("entitlements");
+                            Iterable<String> remoteEntitlements = (List<String>) document.getData()
+                                    .get("entitlements");
                             for (String j: remoteEntitlements) {
                                 entitlements.add(UserEntitlements.valueOf(j));
                             }
@@ -130,7 +131,8 @@ public class User {
                                         new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
-                                                Log.d(TAG, "Failed to add an entitlement to Firestore");
+                                                Log.d(TAG, "Failed to add an entitlement " +
+                                                        "to Firestore");
                                             }
                                         }
                                 );

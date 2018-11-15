@@ -18,7 +18,7 @@ public class Donation {
     private String shortDescription = "";
     @NonNull
     private String longDescription = "";
-    private double value = 0;
+    private double value;
     @NonNull
     private String category = "";
     @NonNull

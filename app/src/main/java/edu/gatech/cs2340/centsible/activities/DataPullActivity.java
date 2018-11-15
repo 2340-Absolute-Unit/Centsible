@@ -124,10 +124,11 @@ public class DataPullActivity extends AppCompatActivity implements Serializable 
             // create csvReader object passing
             // file reader as a parameter
             CSVReader csvReader = new CSVReader(filereader);
-            String[] nextRecord;
+            String[] nextRecord = csvReader.readNext();
 
             // we are going to read data line by line
-            while ((nextRecord = csvReader.readNext()) != null) {
+
+            while (nextRecord != null) {
                 Location tempLoc = new Location();
                 for (int i = 0; i < 11; i++) {
                     outP.append(nextRecord[i]);

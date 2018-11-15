@@ -30,7 +30,7 @@ import edu.gatech.cs2340.centsible.model.LocationManager;
  */
 public class CompleteMapActivity extends AppCompatActivity implements OnMapReadyCallback {
     private final LocationManager tempLoc = LocationManager.getInstance();
-    private final List<Location> locArray = new ArrayList<Location>(tempLoc.getList());
+    private final List<Location> locArray = new ArrayList<>(tempLoc.getList());
 
     /**
      * create intent of context of complete map activity

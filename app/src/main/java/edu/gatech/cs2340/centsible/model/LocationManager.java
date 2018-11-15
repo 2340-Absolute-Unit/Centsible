@@ -67,7 +67,8 @@ public final class LocationManager {
     private void retrieveLocationsFromFirebase() {
         locations = new HashMap<>();
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageReference = storage.getReferenceFromUrl("gs://centsible-d48e9.appspot.com").child("locations/")
+        StorageReference storageReference = storage
+                .getReferenceFromUrl("gs://centsible-d48e9.appspot.com").child("locations/")
                 .child("currentLocations");
         downloadFile(storageReference);
 
@@ -77,7 +78,8 @@ public final class LocationManager {
     private void downloadFile(StorageReference storageReference) {
         try {
             final File localFile = File.createTempFile("text", "csv");
-            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+            storageReference.getFile(localFile)
+                    .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     String filename = localFile.getName();
@@ -125,10 +127,10 @@ public final class LocationManager {
             // create csvReader object passing
             // file reader as a parameter
             CSVReader csvReader = new CSVReader(filereader);
-            String[] nextRecord;
+            String[] nextRecord = csvReader.readNext();
 
             // we are going to read data line by line
-            while ((nextRecord = csvReader.readNext()) != null) {
+            while (nextRecord != null) {
                 Location tempLoc = new Location();
                 for (int i = 0; i < 11; i++) {
                     outP.append(nextRecord[i]);
